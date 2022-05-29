@@ -42,8 +42,7 @@ class GomuflixMovieRemoteDatabaseImpl implements GomuflixMovieRemoteDatabase {
   // Get Movie Detail
   @override
   Future<GomuflixMovieDetailModel> getGomuDetailMovieDatabase(id) async {
-    final response =
-        await client.get(Uri.parse('$baseUrl/movie/now_playing?$apiKey'));
+    final response = await client.get(Uri.parse('$baseUrl/movie/$id?$apiKey'));
 
     if (response.statusCode == 200) {
       return GomuflixMovieDetailModel.fromJson(json.decode(response.body));
@@ -56,7 +55,7 @@ class GomuflixMovieRemoteDatabaseImpl implements GomuflixMovieRemoteDatabase {
   @override
   Future<List<GomuflixMovieModel>> getGomuMostWatchedMovieDatabase() async {
     final response =
-        await client.get(Uri.parse('$baseUrl/movie/now_playing?$apiKey'));
+        await client.get(Uri.parse('$baseUrl/movie/popular?$apiKey'));
 
     if (response.statusCode == 200) {
       return GomuflixMovieResponseModel.fromJson(json.decode(response.body))
@@ -71,7 +70,7 @@ class GomuflixMovieRemoteDatabaseImpl implements GomuflixMovieRemoteDatabase {
   Future<List<GomuflixMovieModel>> getGomuRecommendationMovieDatabase(
       id) async {
     final response =
-        await client.get(Uri.parse('$baseUrl/movie/now_playing?$apiKey'));
+        await client.get(Uri.parse('$baseUrl/movie/recommendations?$apiKey'));
 
     if (response.statusCode == 200) {
       return GomuflixMovieResponseModel.fromJson(json.decode(response.body))
@@ -85,7 +84,7 @@ class GomuflixMovieRemoteDatabaseImpl implements GomuflixMovieRemoteDatabase {
   @override
   Future<List<GomuflixMovieModel>> getGomuTopRatedMovieDatabase() async {
     final response =
-        await client.get(Uri.parse('$baseUrl/movie/now_playing?$apiKey'));
+        await client.get(Uri.parse('$baseUrl/movie/top_rated?$apiKey'));
 
     if (response.statusCode == 200) {
       return GomuflixMovieResponseModel.fromJson(json.decode(response.body))
@@ -99,7 +98,7 @@ class GomuflixMovieRemoteDatabaseImpl implements GomuflixMovieRemoteDatabase {
   @override
   Future<List<GomuflixMovieModel>> searchGomuMovieDatabase(query) async {
     final response =
-        await client.get(Uri.parse('$baseUrl/movie/now_playing?$apiKey'));
+        await client.get(Uri.parse('$baseUrl/search/movie?$apiKey'));
 
     if (response.statusCode == 200) {
       return GomuflixMovieResponseModel.fromJson(json.decode(response.body))
