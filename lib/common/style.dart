@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Image
+const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
+
 // Color
 const Color blackColor = Color(0xFF000000);
 const Color darkRedColor = Color(0xFF3D0000);
@@ -21,6 +24,7 @@ final TextStyle detailText = GoogleFonts.fredoka(fontSize: 12);
 const themeColor = ColorScheme(
   brightness: Brightness.dark,
   primary: lightRedColor,
+  primaryContainer: lightRedColor,
   onPrimary: blackColor,
   secondary: blackColor,
   onSecondary: whiteColor,

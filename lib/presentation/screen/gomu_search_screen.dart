@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gomuflix/common/style.dart';
 import 'package:gomuflix/presentation/widgets/gomu_constant_widget.dart';
+import 'package:gomuflix/presentation/widgets/gomu_content_card_widget.dart';
 
 class GomuflixSearchScreen extends StatefulWidget {
   const GomuflixSearchScreen({Key? key}) : super(key: key);
@@ -57,6 +58,12 @@ class _GomuflixSearchScreenState extends State {
                 ),
               ],
             ),
+            const ContentDivider(),
+            Column(
+              children: const [
+                GomuflixContentCardWidget(),
+              ],
+            )
           ],
         ),
       ),

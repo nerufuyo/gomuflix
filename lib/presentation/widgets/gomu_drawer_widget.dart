@@ -19,6 +19,14 @@ class GomuflixDrawerWidget extends StatelessWidget {
       child: Drawer(
         child: Column(
           children: [
+            const UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/profile.png'),
+              ),
+              accountName: Text('Listyo Adi Pamungkas'),
+              accountEmail: Text('nerufuyo@gmail.com'),
+              decoration: BoxDecoration(color: darkRedColor),
+            ),
             ListTile(
               leading: const Icon(
                 Icons.movie_creation_outlined,
