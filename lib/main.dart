@@ -1,76 +1,98 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gomucore/gomucore.dart';
+import 'package:gomumovie/gomumovie.dart';
+import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
-import 'package:gomuflix/common/style.dart';
-import 'package:gomuflix/presentation/provider/gomu_movie_list_notifier.dart';
-import 'package:gomuflix/presentation/screen/gomu_about_screen.dart';
-import 'package:gomuflix/presentation/screen/gomu_movie_main_screen.dart';
-import 'package:gomuflix/presentation/screen/gomu_search_screen.dart';
-import 'package:gomuflix/presentation/screen/gomu_splash_screen.dart';
-import 'package:gomuflix/presentation/screen/gomu_tv_main_screen.dart';
-import 'package:gomuflix/presentation/screen/gomu_watchlist_screen.dart';
 import 'package:gomuflix/injection.dart' as di;
 
 void main() {
   di.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Movies Notifier
+        // Movie Provider
         ChangeNotifierProvider(
-          create: (_) => di.locator<GomuflixMovieListNotifier>(),
-        ),
+            create: (_) => di.locator<GomuflixMovieListNotifier>()),
+        ChangeNotifierProvider(
+            create: (_) => di.locator<GomuflixMovieDetailNotifier>()),
+        ChangeNotifierProvider(
+            create: (_) => di.locator<GomuflixMovieSearchNotifier>()),
+
+        // Tv Provider
+        ChangeNotifierProvider(
+            create: (_) => di.locator<GomuflixTvListNotifier>()),
+        ChangeNotifierProvider(
+            create: (_) => di.locator<GomuflixTvDetailNotifier>()),
+        ChangeNotifierProvider(
+            create: (_) => di.locator<GomuflixTvSearchNotifier>()),
       ],
       child: MaterialApp(
-        title: 'GOMUFLIX',
+        title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
           colorScheme: themeColor,
           primaryColor: blackColor,
           scaffoldBackgroundColor: blackColor,
         ),
-        home: const GomuflixSplashScreen(),
+        home: GomuflixSplashScreen(),
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case GomuflixSplashScreen.routeName:
               return MaterialPageRoute(
                   builder: (_) => const GomuflixSplashScreen());
 
-            // Movie Screen
+            case GomuflixTvMainScreen.routeName:
+              return MaterialPageRoute(builder: (_) => GomuflixTvMainScreen());
             case GomuflixMovieMainScreen.routeName:
               return MaterialPageRoute(
-                  builder: (_) => const GomuflixMovieMainScreen());
-
-            // Tv Screen
-            case GomuflixTvMainScreen.routeName:
+                  builder: (_) => GomuflixMovieMainScreen());
+            //
+            case GomuflixMoviePopularScreen.ROUTE_NAME:
+              return CupertinoPageRoute(
+                  builder: (_) => GomuflixMoviePopularScreen());
+            case GomuflixMovieTopRatedScreen.ROUTE_NAME:
+              return CupertinoPageRoute(
+                  builder: (_) => GomuflixMovieTopRatedScreen());
+            case GomuflixMovieDetailScreen.routeName:
+              final id = settings.arguments as int;
               return MaterialPageRoute(
-                  builder: (_) => const GomuflixTvMainScreen());
+                builder: (_) => GomuflixMovieDetailScreen(id: id),
+                settings: settings,
+              );
 
-            // Other
+            case GomuflixTvPopularScreen.routeName:
+              return CupertinoPageRoute(
+                  builder: (_) => GomuflixTvPopularScreen());
+            case GomuflixTvTopRatedScreen.routeName:
+              return CupertinoPageRoute(
+                  builder: (_) => GomuflixTvTopRatedScreen());
+            case GomuflixTvDetailScreen.routeName:
+              final id = settings.arguments as int;
+              return MaterialPageRoute(
+                builder: (_) => GomuflixTvDetailScreen(id: id),
+                settings: settings,
+              );
+
             case GomuflixSearchScreen.routeName:
-              return MaterialPageRoute(
-                  builder: (_) => const GomuflixSearchScreen());
+              return CupertinoPageRoute(builder: (_) => GomuflixSearchScreen());
             case GomuflixWatchlistScreen.routeName:
               return MaterialPageRoute(
-                  builder: (_) => const GomuflixWatchlistScreen());
+                  builder: (_) => GomuflixWatchlistScreen());
             case GomuflixAboutScreen.routeName:
-              return MaterialPageRoute(
-                  builder: (_) => const GomuflixAboutScreen());
+              return MaterialPageRoute(builder: (_) => GomuflixAboutScreen());
             default:
-              return MaterialPageRoute(
-                builder: (_) {
-                  return const Scaffold(
-                    body: Center(
-                      child: Text('Sorry, We can\t find any page.'),
-                    ),
-                  );
-                },
-              );
+              return MaterialPageRoute(builder: (_) {
+                return Scaffold(
+                  body: Center(
+                    child: Text('Page not found :('),
+                  ),
+                );
+              });
           }
         },
       ),

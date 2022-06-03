@@ -132,13 +132,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  flutter_lints:
-    dependency: "direct dev"
+  flutter_rating_bar:
+    dependency: "direct main"
     description:
-      name: flutter_lints
+      name: flutter_rating_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "4.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -151,6 +151,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  gomucore:
+    dependency: "direct main"
+    description:
+      path: gomucore
+      relative: true
+    source: path
+    version: "0.0.1"
+  gomumovie:
+    dependency: "direct main"
+    description:
+      path: gomumovie
+      relative: true
+    source: path
+    version: "0.0.1"
+  gomutv:
+    dependency: "direct main"
+    description:
+      path: gomutv
+      relative: true
+    source: path
+    version: "0.0.1"
   google_fonts:
     dependency: "direct main"
     description:
@@ -172,13 +193,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  lints:
-    dependency: transitive
-    description:
-      name: lints
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   matcher:
     dependency: transitive
     description:

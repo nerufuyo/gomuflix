@@ -1,57 +1,107 @@
-import 'package:gomuflix/data/database/gomu_database_handler.dart';
-import 'package:gomuflix/data/database/gomu_movie_database_impl.dart';
-import 'package:gomuflix/data/database/gomu_movie_remote_database.dart';
-import 'package:gomuflix/domain/entities/gomu_remote_entities.dart.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_detail_case.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_most_watched_case.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_on_going_case.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_recommendation_case.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_top_rated_case.dart';
-import 'package:gomuflix/domain/usecases/get_gomu_movie_watchlist_case.dart';
-import 'package:gomuflix/domain/usecases/search_gomu_movie_case.dart';
-import 'package:gomuflix/presentation/provider/gomu_movie_list_notifier.dart';
+import 'package:gomumovie/gomumovie.dart';
+import 'package:gomutv/gomutv.dart';
+import 'package:gomumovie/domain/usecases/get_gomu_movie_watchlist.dart'
+    as rwMovie;
+import 'package:gomumovie/domain/usecases/get_gomu_movie_watchlist.dart'
+    as swMovie;
+import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart' as rwTv;
+import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart' as swTv;
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
-// Declarate Variable
 final locator = GetIt.instance;
 
-// Impelementation
 void init() {
-  // Movies Provider
-  locator.registerFactory(() => GomuflixMovieListNotifier(
-      getGomuMovieOnGoingCase: locator(),
-      getGomuMovieMostWatchedCase: locator(),
-      getGomuMovieTopRatedCase: locator()));
+  // provider
+  locator.registerFactory(
+    () => GomuflixMovieListNotifier(
+      getNowPlayingMovies: locator(),
+      getPopularMovies: locator(),
+      getTopRatedMovies: locator(),
+      getWatchlistMovies: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => GomuflixTvListNotifier(
+      getGomuTvOnAirCase: locator(),
+      getGomuTvPopularCase: locator(),
+      getGomuTvTopRatedCase: locator(),
+      getGomuTvWatchlistCase: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => GomuflixMovieDetailNotifier(
+      getGomuMovieDetail: locator(),
+      getGomuMovieRecommendation: locator(),
+      getGomuMovieWatchlistStatus: locator(),
+      saveGomuMovieWatchlist: locator(),
+      removeGomuMovieWatchlist: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => GomuflixTvDetailNotifier(
+      getGomuTvDetail: locator(),
+      getGomuTvRecommendation: locator(),
+      getGomuTvWatchlistStatus: locator(),
+      saveGomuTvWatchlist: locator(),
+      removeGomuTvWatchlist: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => GomuflixMovieSearchNotifier(
+      searchMovie: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => GomuflixTvSearchNotifier(
+      searchTv: locator(),
+    ),
+  );
 
-  // Movies Usecase
-  locator.registerLazySingleton(() => GetGomuMovieDetailCase(locator()));
-  locator.registerLazySingleton(() => GetGomuMovieMostWatchedCase(locator()));
-  locator.registerLazySingleton(() => GetGomuMovieOnGoingCase(locator()));
+  // use case
+  locator.registerLazySingleton(() => GetGomuflixMovieListCase(locator()));
+  locator.registerLazySingleton(() => GetGomuflixMovieDetailCase(locator()));
+  locator.registerLazySingleton(() => SearchGomuflixMovie(locator()));
+  locator.registerLazySingleton(() => GetGomuflixMovieWatchlistCase(locator()));
+  locator.registerLazySingleton(
+      () => swMovie.SaveGomuflixMoviewatchlist(locator()));
+  locator.registerLazySingleton(
+      () => rwMovie.RemoveGomuflixMoviewatchlist(locator()));
+
+  locator.registerLazySingleton(() => GetGomuflixTvListCase(locator()));
+  locator.registerLazySingleton(() => GetGomuflixTvDetailCase(locator()));
+  locator.registerLazySingleton(() => SearchGomuflixTvCase(locator()));
+  locator.registerLazySingleton(() => GetGomuflixTvWatchlistCase(locator()));
   locator
-      .registerLazySingleton(() => GetGomuMovieRecommendationCase(locator()));
-  locator.registerLazySingleton(() => GetGomuMovieTopRatedCase(locator()));
-  locator.registerLazySingleton(() => GetGomuWatchlistMoviesCase(locator()));
-  locator
-      .registerLazySingleton(() => GetGomuWatchlistStatusMoviesCase(locator()));
-  locator.registerLazySingleton(() => RemoveGomuWatchlistMoviesCase(locator()));
-  locator.registerLazySingleton(() => SaveGomuWatchlistMoviesCase(locator()));
-  locator.registerLazySingleton(() => SearchGomuMovieCase(locator()));
+      .registerLazySingleton(() => swTv.SaveGomuflixTvWatchlistCase(locator()));
+  locator.registerLazySingleton(
+      () => rwTv.RemoveGomuflixTvWatchlistCase(locator()));
 
-  // Movies Remote Entities
-  locator.registerLazySingleton<GomuflixMoviesRemoteEntities>(() =>
-      GomuflixMovieDatabaseImpl(
-          remoteDatabase: locator(), localDatabase: locator()));
+  // repository
+  locator.registerLazySingleton<MovieRepository>(
+    () => GomuflixMovieRepositoryImpl(
+      remoteMovieDataSource: locator(),
+    ),
+  );
+  locator.registerLazySingleton<GomuflixTvRepository>(
+    () => GomuflixTvRepositoryImpl(
+      remoteTvDatasource: locator(),
+    ),
+  );
 
-  // Movies Remote Database
-  locator.registerLazySingleton<GomuflixMovieRemoteDatabase>(
-      () => GomuflixMovieRemoteDatabaseImpl(client: locator()));
-  locator.registerLazySingleton<GomuflixMovieLocalDatabase>(
-      () => GomuflixMovieLocalDatabaseImpl(databaseHandler: locator()));
+  // data sources
+  locator.registerLazySingleton<GomuflixMovieRemoteDatasource>(() =>
+      MovieRemoteDataSourceImpl(client: locator(), databaseHelper: locator()));
+  locator.registerLazySingleton<GomuflixTvRemoteApiDatasource>(() =>
+      GomuflixTvRemoteApiDatasourceImpl(
+          client: locator(), databaseHandlerVar: locator()));
 
-  // Movies Handler
-  locator.registerLazySingleton<DatabaseHandler>(() => DatabaseHandler());
+  // helper
+  locator.registerLazySingleton<GomuflixMovieDatasourceHandler>(
+      () => GomuflixMovieDatasourceHandler());
+  locator.registerLazySingleton<GomuflixTvDatasourceHandler>(
+      () => GomuflixTvDatasourceHandler());
 
-  // External
+  // external
   locator.registerLazySingleton(() => http.Client());
 }
