@@ -9,6 +9,7 @@ class GomuflixTvDetailScreen extends StatefulWidget {
   static const routeName = '/detail-tv';
 
   final int id;
+
   const GomuflixTvDetailScreen({required this.id, Key? key}) : super(key: key);
 
   @override

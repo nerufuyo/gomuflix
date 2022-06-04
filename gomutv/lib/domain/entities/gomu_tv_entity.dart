@@ -6,41 +6,50 @@ import 'package:equatable/equatable.dart';
 class GomuflixTvEntity extends Equatable {
   // Declarate Variable
   String? backdropPath;
+
   List<int>? genreIds;
+
   int id;
+
   String? originalName;
+
   String? overview;
+
   double? popularity;
+
   String? posterPath;
+
   String? firstAirDate;
+
   String? name;
+
   bool? video;
+
   double? voteAverage;
+
   int? voteCount;
 
   // Callback Variable
-  GomuflixTvEntity({
-    required this.backdropPath,
-    required this.genreIds,
-    required this.id,
-    required this.originalName,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.firstAirDate,
-    required this.name,
-    required this.voteAverage,
-    required this.voteCount,
-  });
+  GomuflixTvEntity(
+      {required this.backdropPath,
+      required this.genreIds,
+      required this.id,
+      required this.originalName,
+      required this.overview,
+      required this.popularity,
+      required this.posterPath,
+      required this.firstAirDate,
+      required this.name,
+      required this.voteAverage,
+      required this.voteCount});
 
   // Callback Varable for Wacthlist
-  GomuflixTvEntity.watchlist({
-    required this.id,
-    required this.firstAirDate,
-    required this.overview,
-    required this.posterPath,
-    required this.name,
-  });
+  GomuflixTvEntity.watchlist(
+      {required this.id,
+      required this.firstAirDate,
+      required this.overview,
+      required this.posterPath,
+      required this.name});
 
   // Overriding
   @override
@@ -56,41 +65,51 @@ class GomuflixTvEntity extends Equatable {
         name,
         video,
         voteAverage,
-        voteCount,
+        voteCount
       ];
 }
 
 // Tv Detail Entity
 class GomuflixTvDetailEntity extends Equatable {
   // Decalarate Variable
-  final String? backdropPath;
-  final List<GomuflixTvGenreEntity> genres;
-  final int id;
-  final String originalName;
-  final String overview;
-  final String posterPath;
-  final String firstAirDate;
-  final String name;
-  final int numberOfEpisodes;
-  final int numberOfSeasons;
-  final double voteAverage;
-  final int voteCount;
+  String? backdropPath;
+
+  List<GomuflixTvGenreEntity> genres;
+
+  int id;
+
+  String originalName;
+
+  String overview;
+
+  String posterPath;
+
+  String firstAirDate;
+
+  String name;
+
+  int numberOfEpisodes;
+
+  int numberOfSeasons;
+
+  double voteAverage;
+
+  int voteCount;
 
   // Callback Variable
-  const GomuflixTvDetailEntity({
-    required this.backdropPath,
-    required this.genres,
-    required this.id,
-    required this.originalName,
-    required this.overview,
-    required this.posterPath,
-    required this.firstAirDate,
-    required this.name,
-    required this.numberOfEpisodes,
-    required this.numberOfSeasons,
-    required this.voteAverage,
-    required this.voteCount,
-  });
+  GomuflixTvDetailEntity(
+      {required this.backdropPath,
+      required this.genres,
+      required this.id,
+      required this.originalName,
+      required this.overview,
+      required this.posterPath,
+      required this.firstAirDate,
+      required this.name,
+      required this.numberOfEpisodes,
+      required this.numberOfSeasons,
+      required this.voteAverage,
+      required this.voteCount});
 
   // Overriding
   @override
@@ -104,21 +123,19 @@ class GomuflixTvDetailEntity extends Equatable {
         firstAirDate,
         name,
         voteAverage,
-        voteCount,
+        voteCount
       ];
 }
 
 // Tv Genre Entity
 class GomuflixTvGenreEntity extends Equatable {
   // Declarate Variable
-  final int id;
-  final String name;
+  int id;
+
+  String name;
 
   // Callback Variable
-  const GomuflixTvGenreEntity({
-    required this.id,
-    required this.name,
-  });
+  GomuflixTvGenreEntity({required this.id, required this.name});
 
   // Overriding
   @override

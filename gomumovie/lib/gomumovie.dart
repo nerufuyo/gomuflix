@@ -1,15 +1,7 @@
 library gomumovie;
 
-// Datasources
-export 'package:gomumovie/data/datasources/gomu_movie_datasource_handler.dart';
-export 'package:gomumovie/data/datasources/gomu_movie_remote_datasource.dart';
-
-// Models
-export 'package:gomumovie/data/models/gomu_movie_model.dart';
-export 'package:gomumovie/data/models/gomu_movie_response_model.dart';
-
 // Data Repositories
-export 'package:gomumovie/data/repositories/gomu_movie_repository_impl.dart';
+export 'package:gomucore/data/repositories/gomu_movie_repository_impl.dart';
 
 // Entities
 export 'package:gomumovie/domain/entities/gomu_movie_entity.dart';

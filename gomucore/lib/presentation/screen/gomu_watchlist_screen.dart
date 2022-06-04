@@ -68,6 +68,13 @@ class _GomuflixWatchlistScreenState extends State {
                   );
                 } else if (data.state == RequestState.loaded) {
                   return GomuflixMovieList(data.watchlistMovies);
+                } else if (data.state == RequestState.empty) {
+                  return Center(
+                    child: Text(
+                      'Your Watchlist is Empty',
+                      style: subNameText,
+                    ),
+                  );
                 } else {
                   return Center(
                     key: const Key('error_message'),
@@ -99,6 +106,13 @@ class _GomuflixWatchlistScreenState extends State {
                   );
                 } else if (data.state == RequestState.loaded) {
                   return GomuflixTvList(data.watchlistTv);
+                } else if (data.state == RequestState.empty) {
+                  return Center(
+                    child: Text(
+                      'Your Watchlist is Empty',
+                      style: subNameText,
+                    ),
+                  );
                 } else {
                   return Center(
                     key: const Key('error_message'),

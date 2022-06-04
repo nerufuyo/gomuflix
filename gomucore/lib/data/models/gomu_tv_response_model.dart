@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:gomutv/gomutv.dart';
+import 'package:gomucore/gomucore.dart';
 
 class GomuflixTvResponseModel extends Equatable {
   // Declarate Variable

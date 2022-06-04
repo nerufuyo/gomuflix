@@ -4,7 +4,7 @@ import 'package:gomumovie/gomumovie.dart';
 
 class GetGomuflixMovieListCase {
   // Declarate Variable
-  final MovieRepository data;
+  MovieRepository data;
 
   // Callback Variable
   GetGomuflixMovieListCase(this.data);

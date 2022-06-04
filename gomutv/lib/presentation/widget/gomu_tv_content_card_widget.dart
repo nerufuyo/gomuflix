@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gomucore/gomucore.dart';
-import 'package:gomutv/domain/entities/gomu_tv_entity.dart';
+import 'package:gomutv/gomutv.dart';
 
 class GomuflixTvContentCardWidget extends StatelessWidget {
   // Declarate Variable
@@ -19,7 +19,10 @@ class GomuflixTvContentCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         splashColor: darkRedColor,
         highlightColor: bloodRedColor,
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, GomuflixTvDetailScreen.routeName,
+              arguments: gomuTv.id);
+        },
         child: Row(
           children: [
             ClipRRect(

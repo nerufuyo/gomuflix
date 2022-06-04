@@ -20,7 +20,10 @@ class GomuflixMovieContentCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         splashColor: darkRedColor,
         highlightColor: bloodRedColor,
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, GomuflixMovieDetailScreen.routeName,
+              arguments: gomuMovie.id);
+        },
         child: Row(
           children: [
             ClipRRect(

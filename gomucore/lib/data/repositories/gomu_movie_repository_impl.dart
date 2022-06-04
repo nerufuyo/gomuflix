@@ -8,22 +8,21 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   final GomuflixMovieRemoteDatasource remoteMovieDataSource;
 
   // Callback Variable
-  GomuflixMovieRepositoryImpl({
-    required this.remoteMovieDataSource,
-  });
+  GomuflixMovieRepositoryImpl({required this.remoteMovieDataSource});
 
   // Get Movie Now Playing
   @override
   Future<Either<FailureCondition, List<GomuflixMovieEntity>>>
       getGomuflixMovieNowPlayingAct() async {
+    final result =
+        await remoteMovieDataSource.getGomuMovieNowPlayingDatasource();
+
     try {
-      final result =
-          await remoteMovieDataSource.getGomuMovieNowPlayingDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -31,14 +30,14 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, GomuflixMovieDetailEntity>>
       getGomuflixMovieDetailAct(int id) async {
+    final result = await remoteMovieDataSource.getGomuMovieDetailDatasource(id);
+
     try {
-      final result =
-          await remoteMovieDataSource.getGomuMovieDetailDatasource(id);
       return Right(result.toEntity());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -46,14 +45,15 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixMovieEntity>>>
       getGomuflixMovieRecommendationAct(int id) async {
+    final result =
+        await remoteMovieDataSource.getGomuMovieRecommendationDatasource(id);
+
     try {
-      final result =
-          await remoteMovieDataSource.getGomuMovieRecommendationDatasource(id);
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -61,14 +61,14 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixMovieEntity>>>
       getGomuflixMoviePopularAct() async {
+    final result = await remoteMovieDataSource.getGomuMoviePopularDatasource();
+
     try {
-      final result =
-          await remoteMovieDataSource.getGomuMoviePopularDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -76,14 +76,14 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixMovieEntity>>>
       getGomuflixMovieTopRatedAct() async {
+    final result = await remoteMovieDataSource.getGomuMovieTopRatedDatasource();
+
     try {
-      final result =
-          await remoteMovieDataSource.getGomuMovieTopRatedDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -91,14 +91,14 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixMovieEntity>>>
       searchGomuflixMovieAct(String query) async {
+    final result = await remoteMovieDataSource.searchGomuMovieDatasource(query);
+
     try {
-      final result =
-          await remoteMovieDataSource.searchGomuMovieDatasource(query);
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -106,6 +106,7 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<bool> isAddedToWatchlist(int id) async {
     final result = await remoteMovieDataSource.getGomuMovieByIdDatasource(id);
+
     return result != null;
   }
 
@@ -115,6 +116,7 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
       getGomuflixMovieWatchlistAct() async {
     final result =
         await remoteMovieDataSource.getGomuMovieWatchlistDatasource();
+
     return Right(result.map((data) => data.toEntity()).toList());
   }
 
@@ -122,10 +124,11 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, String>> saveGomuflixMovieWatchlistAct(
       GomuflixMovieDetailEntity movie) async {
+    final result =
+        await remoteMovieDataSource.insertGomuMovieWatchlistDatasource(
+            GomuflixMovieWatchlistModel.fromEntity(movie));
+
     try {
-      final result =
-          await remoteMovieDataSource.insertGomuMovieWatchlistDatasource(
-              GomuflixMovieWatchlistModel.fromEntity(movie));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -138,10 +141,11 @@ class GomuflixMovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<FailureCondition, String>> removeGomuflixMovieWatchlistAct(
       GomuflixMovieDetailEntity movie) async {
+    final result =
+        await remoteMovieDataSource.removeGomuMovieWatchlistDatasource(
+            GomuflixMovieWatchlistModel.fromEntity(movie));
+
     try {
-      final result =
-          await remoteMovieDataSource.removeGomuMovieWatchlistDatasource(
-              GomuflixMovieWatchlistModel.fromEntity(movie));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));

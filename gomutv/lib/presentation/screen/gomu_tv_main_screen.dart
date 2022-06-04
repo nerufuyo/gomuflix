@@ -80,12 +80,11 @@ class _GomuflixTvMainScreenState extends State {
                   const ContentDivider(),
                   Consumer<GomuflixTvListNotifier>(
                     builder: (context, data, child) {
-                      final state = data.gomuTvOnAirState;
-                      if (state == RequestState.loading) {
+                      if (data.gomuTvOnAirState == RequestState.loading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
+                      } else if (data.gomuTvOnAirState == RequestState.loaded) {
                         return GomuflixTvList(data.onAirTv);
                       } else {
                         return Center(

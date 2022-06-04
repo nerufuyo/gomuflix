@@ -5,44 +5,64 @@ import 'package:flutter/material.dart';
 
 class GomuflixMovieDetailNotifier extends ChangeNotifier {
   // Declarate Variable
-  final GetGomuflixMovieDetailCase getGomuMovieDetail;
-  final GetGomuflixMovieDetailCase getGomuMovieRecommendation;
-  final GetGomuflixMovieWatchlistCase getGomuMovieWatchlistStatus;
-  final SaveGomuflixMoviewatchlist saveGomuMovieWatchlist;
-  final RemoveGomuflixMoviewatchlist removeGomuMovieWatchlist;
+
+  GetGomuflixMovieDetailCase getGomuMovieDetail;
+
+  GetGomuflixMovieDetailCase getGomuMovieRecommendation;
+
+  GetGomuflixMovieWatchlistCase getGomuMovieWatchlistStatus;
+
+  SaveGomuflixMoviewatchlist saveGomuMovieWatchlist;
+
+  RemoveGomuflixMoviewatchlist removeGomuMovieWatchlist;
+
   late GomuflixMovieDetailEntity gomuMovieEntity;
+
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
+
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+
   bool _isAddedtoWatchlist = false;
+
   List<GomuflixMovieEntity> movieRecommendationsVar = [];
+
   RequestState stateVar = RequestState.empty;
+
   String messageVar = '';
 
   // Callback Variable
-  GomuflixMovieDetailNotifier({
-    required this.getGomuMovieDetail,
-    required this.getGomuMovieRecommendation,
-    required this.getGomuMovieWatchlistStatus,
-    required this.saveGomuMovieWatchlist,
-    required this.removeGomuMovieWatchlist,
-  });
+  GomuflixMovieDetailNotifier(
+      {required this.getGomuMovieDetail,
+      required this.getGomuMovieRecommendation,
+      required this.getGomuMovieWatchlistStatus,
+      required this.saveGomuMovieWatchlist,
+      required this.removeGomuMovieWatchlist});
 
   // Get Value
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
+
   GomuflixMovieDetailEntity get movie => gomuMovieEntity;
+
   List<GomuflixMovieEntity> get movieRecommendations => movieRecommendationsVar;
+
   RequestState get movieState => stateVar;
+
   RequestState get recommendationState => stateVar;
+
   String get message => messageVar;
+
   String get watchlistMessage => messageVar;
 
   // Sync Movie Detail
   Future<void> syncGomuMovieDetail(int id) async {
     // Declare Variable
     final detailResult = await getGomuMovieDetail.detailAction(id);
+
     final recommendationResult =
         await getGomuMovieRecommendation.recommendationAction(id);
+
     stateVar = RequestState.loading;
+
     notifyListeners();
 
     // Result Value
@@ -76,6 +96,7 @@ class GomuflixMovieDetailNotifier extends ChangeNotifier {
   Future<void> loadWatchlistStatus(int id) async {
     final result = await getGomuMovieWatchlistStatus.execute(id);
     _isAddedtoWatchlist = result;
+
     notifyListeners();
   }
 

@@ -4,9 +4,12 @@ import 'package:flutter/foundation.dart';
 
 class GomuflixMovieSearchNotifier extends ChangeNotifier {
   // Declarate Variable
-  final SearchGomuflixMovie searchMovie;
+  SearchGomuflixMovie searchMovie;
+
   List<GomuflixMovieEntity> _searchResult = [];
+
   RequestState stateVar = RequestState.empty;
+
   String messageVar = '';
 
   // Callback Variable
@@ -14,14 +17,18 @@ class GomuflixMovieSearchNotifier extends ChangeNotifier {
 
   // Get Value
   List<GomuflixMovieEntity> get searchResult => _searchResult;
+
   RequestState get state => stateVar;
+
   String get message => messageVar;
 
   // Sync Search Movie Notifier
   Future<void> syncSearchMovie(String query) async {
     // Declarate Variable
     final result = await searchMovie.execute(query);
+
     stateVar = RequestState.loading;
+
     notifyListeners();
 
     // Result Value

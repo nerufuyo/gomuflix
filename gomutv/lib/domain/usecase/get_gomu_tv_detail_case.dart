@@ -5,7 +5,7 @@ import 'package:gomutv/gomutv.dart';
 // Get Detail Case
 class GetGomuflixTvDetailCase {
   // Decalarate Variable
-  final GomuflixTvRepository data;
+  GomuflixTvRepository data;
 
   // Callback Variable
   GetGomuflixTvDetailCase(this.data);

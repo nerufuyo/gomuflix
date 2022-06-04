@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:gomumovie/gomumovie.dart';
+import 'package:gomucore/gomucore.dart';
 import 'package:sqflite/sqflite.dart';
 
 class GomuflixMovieDatasourceHandler {
@@ -20,21 +20,25 @@ class GomuflixMovieDatasourceHandler {
   // Initial Database
   Future<Database?> get database async {
     gomuDatabaseVar ??= await _initDb();
+
     return gomuDatabaseVar;
   }
 
   // Get Database Path
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
+
     final databasePath = '$path/ditonton_movie.db';
 
     var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+
     return db;
   }
 
   // Create Table on Database
   void _onCreate(Database db, int version) async {
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE  $gomuTblWatchlistVar (
         id INTEGER PRIMARY KEY,
         title TEXT,
@@ -47,11 +51,9 @@ class GomuflixMovieDatasourceHandler {
   // Get Movie By Id Database
   Future<Map<String, dynamic>?> getGomuMovieByIdHandler(int id) async {
     final db = await database;
-    final results = await db!.query(
-      gomuTblWatchlistVar,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+
+    final results =
+        await db!.query(gomuTblWatchlistVar, where: 'id = ?', whereArgs: [id]);
 
     if (results.isNotEmpty) {
       return results.first;
@@ -63,6 +65,7 @@ class GomuflixMovieDatasourceHandler {
   // Get Watchlist Movie Database
   Future<List<Map<String, dynamic>>> getGomuMovieWatchlistHandler() async {
     final db = await database;
+
     final List<Map<String, dynamic>> results =
         await db!.query(gomuTblWatchlistVar);
 
@@ -73,6 +76,7 @@ class GomuflixMovieDatasourceHandler {
   Future<int> insertGomuMovieWatchlistHandler(
       GomuflixMovieWatchlistModel movie) async {
     final db = await database;
+
     return await db!.insert(gomuTblWatchlistVar, movie.toJson());
   }
 
@@ -80,6 +84,7 @@ class GomuflixMovieDatasourceHandler {
   Future<int> removeGomuMovieWatchlistHandler(
       GomuflixMovieWatchlistModel movie) async {
     final db = await database;
+
     return await db!.delete(
       gomuTblWatchlistVar,
       where: 'id = ?',

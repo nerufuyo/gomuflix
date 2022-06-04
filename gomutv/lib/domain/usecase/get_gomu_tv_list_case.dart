@@ -4,7 +4,7 @@ import 'package:gomutv/gomutv.dart';
 
 class GetGomuflixTvListCase {
   // Declarate Variable
-  final GomuflixTvRepository data;
+  GomuflixTvRepository data;
 
   // Callback Variable
   GetGomuflixTvListCase(this.data);

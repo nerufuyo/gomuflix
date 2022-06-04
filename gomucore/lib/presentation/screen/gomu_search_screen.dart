@@ -5,8 +5,8 @@ import 'package:gomumovie/gomumovie.dart';
 import 'package:provider/provider.dart';
 
 class GomuflixSearchScreen extends StatelessWidget {
-  GomuflixSearchScreen({Key? key}) : super(key: key);
   static const routeName = '/gomuflix-search-screen';
+
   final textController = TextEditingController();
 
   @override
@@ -83,6 +83,13 @@ class GomuflixSearchScreen extends StatelessWidget {
                       itemCount: data.searchResult.length,
                     ),
                   );
+                } else if (data.stateVar == RequestState.empty) {
+                  return Center(
+                    child: Text(
+                      'Your Movie or Tv is Empty',
+                      style: subNameText,
+                    ),
+                  );
                 } else {
                   return Expanded(
                     child: Container(),
@@ -106,6 +113,13 @@ class GomuflixSearchScreen extends StatelessWidget {
                             data.searchResult[index]);
                       },
                       itemCount: result.length,
+                    ),
+                  );
+                } else if (data.stateVar == RequestState.empty) {
+                  return Center(
+                    child: Text(
+                      'Your Movie or Tv is Empty',
+                      style: subNameText,
                     ),
                   );
                 } else {

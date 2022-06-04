@@ -6,43 +6,53 @@ import 'package:equatable/equatable.dart';
 class GomuflixMovieEntity extends Equatable {
   // Declare Variable
   bool? adult;
+
   String? backdropPath;
+
   List<int>? genreIds;
+
   int id;
+
   String? originalTitle;
+
   String? overview;
+
   double? popularity;
+
   String? posterPath;
+
   String? releaseDate;
+
   String? title;
+
   bool? video;
+
   double? voteAverage;
+
   int? voteCount;
 
   // Callback Variable
-  GomuflixMovieEntity({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
-    required this.id,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.title,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
-  });
+  GomuflixMovieEntity(
+      {required this.adult,
+      required this.backdropPath,
+      required this.genreIds,
+      required this.id,
+      required this.originalTitle,
+      required this.overview,
+      required this.popularity,
+      required this.posterPath,
+      required this.releaseDate,
+      required this.title,
+      required this.video,
+      required this.voteAverage,
+      required this.voteCount});
 
   // Callback Watchlist Variable
-  GomuflixMovieEntity.watchlist({
-    required this.id,
-    required this.overview,
-    required this.posterPath,
-    required this.title,
-  });
+  GomuflixMovieEntity.watchlist(
+      {required this.id,
+      required this.overview,
+      required this.posterPath,
+      required this.title});
 
   @override
   List<Object?> get props => [
@@ -58,41 +68,51 @@ class GomuflixMovieEntity extends Equatable {
         title,
         video,
         voteAverage,
-        voteCount,
+        voteCount
       ];
 }
 
 // Movie Detail Entity
 class GomuflixMovieDetailEntity extends Equatable {
   // Declare Variable
-  final bool adult;
-  final String? backdropPath;
-  final List<GomuflixMovieGenreEntity> genres;
-  final int id;
-  final String originalTitle;
-  final String overview;
-  final String posterPath;
-  final String releaseDate;
-  final int runtime;
-  final String title;
-  final double voteAverage;
-  final int voteCount;
+  bool adult;
+
+  String? backdropPath;
+
+  List<GomuflixMovieGenreEntity> genres;
+
+  int id;
+
+  String originalTitle;
+
+  String overview;
+
+  String posterPath;
+
+  String releaseDate;
+
+  int runtime;
+
+  String title;
+
+  double voteAverage;
+
+  int voteCount;
 
   // Callback Variable
-  const GomuflixMovieDetailEntity({
-    required this.adult,
-    required this.backdropPath,
-    required this.genres,
-    required this.id,
-    required this.originalTitle,
-    required this.overview,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.runtime,
-    required this.title,
-    required this.voteAverage,
-    required this.voteCount,
-  });
+  GomuflixMovieDetailEntity(
+      {required this.adult,
+      required this.backdropPath,
+      required this.genres,
+      required this.id,
+      required this.originalTitle,
+      required this.overview,
+      required this.posterPath,
+      required this.releaseDate,
+      required this.runtime,
+      required this.title,
+      required this.voteAverage,
+      required this.voteCount});
 
   @override
   List<Object?> get props => [
@@ -106,21 +126,18 @@ class GomuflixMovieDetailEntity extends Equatable {
         releaseDate,
         title,
         voteAverage,
-        voteCount,
+        voteCount
       ];
 }
 
 // Movie Genre Entity
 class GomuflixMovieGenreEntity extends Equatable {
   // Declare Variable
-  final int id;
-  final String name;
+  int id;
+  String name;
 
   // Callback Variable
-  const GomuflixMovieGenreEntity({
-    required this.id,
-    required this.name,
-  });
+  GomuflixMovieGenreEntity({required this.id, required this.name});
 
   @override
   List<Object> get props => [id, name];

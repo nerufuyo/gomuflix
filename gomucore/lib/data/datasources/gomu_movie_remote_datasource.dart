@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:gomucore/gomucore.dart';
-import 'package:gomumovie/gomumovie.dart';
 import 'package:http/http.dart' as http;
 
 // Remote Api Datasource
@@ -8,16 +7,23 @@ abstract class GomuflixMovieRemoteDatasource {
   // Api Remote
   Future<List<GomuflixMovieModel>> getGomuMovieNowPlayingDatasource();
   Future<List<GomuflixMovieModel>> getGomuMoviePopularDatasource();
+
   Future<List<GomuflixMovieModel>> getGomuMovieTopRatedDatasource();
+
   Future<GomuflixMovieDetailModel> getGomuMovieDetailDatasource(int id);
+
   Future<List<GomuflixMovieModel>> getGomuMovieRecommendationDatasource(int id);
+
   Future<List<GomuflixMovieModel>> searchGomuMovieDatasource(String query);
 
   // Local Remote
   Future<GomuflixMovieWatchlistModel?> getGomuMovieByIdDatasource(int id);
+
   Future<List<GomuflixMovieWatchlistModel>> getGomuMovieWatchlistDatasource();
+
   Future<String> insertGomuMovieWatchlistDatasource(
       GomuflixMovieWatchlistModel movie);
+
   Future<String> removeGomuMovieWatchlistDatasource(
       GomuflixMovieWatchlistModel movie);
 }
@@ -26,13 +32,12 @@ abstract class GomuflixMovieRemoteDatasource {
 class MovieRemoteDataSourceImpl implements GomuflixMovieRemoteDatasource {
   // Declare Variable
   final http.Client client;
+
   final GomuflixMovieDatasourceHandler databaseHelper;
 
   // Callback Variable
-  MovieRemoteDataSourceImpl({
-    required this.client,
-    required this.databaseHelper,
-  });
+  MovieRemoteDataSourceImpl(
+      {required this.client, required this.databaseHelper});
 
   // Get Movie Now Playing Datasource
   @override
@@ -123,6 +128,7 @@ class MovieRemoteDataSourceImpl implements GomuflixMovieRemoteDatasource {
   Future<GomuflixMovieWatchlistModel?> getGomuMovieByIdDatasource(
       int id) async {
     final result = await databaseHelper.getGomuMovieByIdHandler(id);
+
     if (result != null) {
       return GomuflixMovieWatchlistModel.fromMap(result);
     } else {
@@ -135,6 +141,7 @@ class MovieRemoteDataSourceImpl implements GomuflixMovieRemoteDatasource {
   Future<List<GomuflixMovieWatchlistModel>>
       getGomuMovieWatchlistDatasource() async {
     final result = await databaseHelper.getGomuMovieWatchlistHandler();
+
     return result
         .map((data) => GomuflixMovieWatchlistModel.fromMap(data))
         .toList();
@@ -144,8 +151,9 @@ class MovieRemoteDataSourceImpl implements GomuflixMovieRemoteDatasource {
   @override
   Future<String> insertGomuMovieWatchlistDatasource(
       GomuflixMovieWatchlistModel movie) async {
+    await databaseHelper.insertGomuMovieWatchlistHandler(movie);
+
     try {
-      await databaseHelper.insertGomuMovieWatchlistHandler(movie);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -156,8 +164,9 @@ class MovieRemoteDataSourceImpl implements GomuflixMovieRemoteDatasource {
   @override
   Future<String> removeGomuMovieWatchlistDatasource(
       GomuflixMovieWatchlistModel movie) async {
+    await databaseHelper.removeGomuMovieWatchlistHandler(movie);
+
     try {
-      await databaseHelper.removeGomuMovieWatchlistHandler(movie);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());

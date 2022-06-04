@@ -5,7 +5,7 @@ import 'package:gomumovie/gomumovie.dart';
 // Get Movie Watchlist
 class GetGomuflixMovieWatchlistCase {
   // Declarate Variable
-  final MovieRepository data;
+  MovieRepository data;
 
   // Callback Variable
   GetGomuflixMovieWatchlistCase(this.data);
@@ -25,7 +25,7 @@ class GetGomuflixMovieWatchlistCase {
 // Save Watchlist Movie
 class SaveGomuflixMoviewatchlist {
   // Declarate Variable
-  final MovieRepository data;
+  MovieRepository data;
 
   // Callback Variable
   SaveGomuflixMoviewatchlist(this.data);
@@ -40,7 +40,7 @@ class SaveGomuflixMoviewatchlist {
 // Remove Watchlist Movie
 class RemoveGomuflixMoviewatchlist {
   // Declarate Variable
-  final MovieRepository data;
+  MovieRepository data;
 
   // Callback Variable
   RemoveGomuflixMoviewatchlist(this.data);

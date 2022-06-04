@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:gomucore/common/static.dart';
+import 'package:gomucore/gomucore.dart';
 import 'package:gomutv/gomutv.dart';
 
 class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
@@ -8,21 +8,22 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   final GomuflixTvRemoteApiDatasource remoteTvDatasource;
 
   // Callback Variable
-  GomuflixTvRepositoryImpl({
-    required this.remoteTvDatasource,
-  });
+  GomuflixTvRepositoryImpl({required this.remoteTvDatasource});
 
   // Get Tv On Air Action
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>>
       getGomuflixTvOnAirAct() async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.getGomuTvOnAirDatasource();
+
+    // Condition Handle
     try {
-      final result = await remoteTvDatasource.getGomuTvOnAirDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -30,13 +31,16 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, GomuflixTvDetailEntity>>
       getGomuflixTvDetailAct(int id) async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.getGomuTvDetailDatasource(id);
+
+    // Condition Handle
     try {
-      final result = await remoteTvDatasource.getGomuTvDetailDatasource(id);
       return Right(result.toEntity());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -44,14 +48,17 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>>
       getGomuflixTvRecommendationAct(id) async {
+    // Declarate Variable
+    final result =
+        await remoteTvDatasource.getGomuTvRecommendationDatasource(id);
+
+    // Condition Handle
     try {
-      final result =
-          await remoteTvDatasource.getGomuTvRecommendationDatasource(id);
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -59,13 +66,16 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>>
       getGomuflixTvPopularAct() async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.getGomuTvPopularDatasource();
+
+    // Condition Handle
     try {
-      final result = await remoteTvDatasource.getGomuTvPopularDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -73,13 +83,16 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>>
       getGomuflixTvTopRatedAct() async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.getGomuTvTopRatedDatasource();
+
+    // Condition Handle
     try {
-      final result = await remoteTvDatasource.getGomuTvTopRatedDatasource();
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
@@ -87,20 +100,26 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>> searchGomuflixTvAct(
       String query) async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.searchGomuTvDatasource(query);
+
+    // Condition Handle
     try {
-      final result = await remoteTvDatasource.searchGomuTvDatasource(query);
       return Right(result.map((model) => model.toEntity()).toList());
-    } on ServerException {
-      return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on ServerException {
+      return const Left(ServerFailure(''));
     }
   }
 
   // Get Tv By Id Action
   @override
   Future<bool> isAddedToWatchlist(int id) async {
+    // Declarate Variable
     final result = await remoteTvDatasource.getGomuTvByIdDatasource(id);
+
+    // Return Value
     return result != null;
   }
 
@@ -108,7 +127,10 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, List<GomuflixTvEntity>>>
       getGomuflixTvWatchlistAct() async {
+    // Declarate Variable
     final result = await remoteTvDatasource.getGomuTvWatchlistDatasource();
+
+    // Return Value
     return Right(result.map((data) => data.toEntity()).toList());
   }
 
@@ -116,9 +138,12 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
   @override
   Future<Either<FailureCondition, String>> saveGomuflixTvAct(
       GomuflixTvDetailEntity tv) async {
+    // Declarate Variable
+    final result = await remoteTvDatasource.insertGomuTvWatchlistDatasource(
+        GomuflixTvWatchlistModel.fromEntity(tv));
+
+    // Conditional Handle
     try {
-      final result = await remoteTvDatasource.insertGomuTvWatchlistDatasource(
-          GomuflixTvWatchlistModel.fromEntity(tv));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));

@@ -5,44 +5,63 @@ import 'package:flutter/material.dart';
 
 class GomuflixTvDetailNotifier extends ChangeNotifier {
   // Declarate Variable
-  final GetGomuflixTvDetailCase getGomuTvDetail;
-  final GetGomuflixTvDetailCase getGomuTvRecommendation;
-  final GetGomuflixTvWatchlistCase getGomuTvWatchlistStatus;
-  final SaveGomuflixTvWatchlistCase saveGomuTvWatchlist;
-  final RemoveGomuflixTvWatchlistCase removeGomuTvWatchlist;
+  GetGomuflixTvDetailCase getGomuTvDetail;
+
+  GetGomuflixTvDetailCase getGomuTvRecommendation;
+
+  GetGomuflixTvWatchlistCase getGomuTvWatchlistStatus;
+
+  SaveGomuflixTvWatchlistCase saveGomuTvWatchlist;
+
+  RemoveGomuflixTvWatchlistCase removeGomuTvWatchlist;
+
   late GomuflixTvDetailEntity gomuTvEntitiy;
+
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
+
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+
   bool _isAddedtoWatchlist = false;
+
   List<GomuflixTvEntity> gomuTvRecommendation = [];
+
   RequestState stateVar = RequestState.empty;
+
   String messageVar = '';
 
   // Callback Variable
-  GomuflixTvDetailNotifier({
-    required this.getGomuTvDetail,
-    required this.getGomuTvRecommendation,
-    required this.getGomuTvWatchlistStatus,
-    required this.saveGomuTvWatchlist,
-    required this.removeGomuTvWatchlist,
-  });
+  GomuflixTvDetailNotifier(
+      {required this.getGomuTvDetail,
+      required this.getGomuTvRecommendation,
+      required this.getGomuTvWatchlistStatus,
+      required this.saveGomuTvWatchlist,
+      required this.removeGomuTvWatchlist});
 
   // Get Value to Variable
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
+
   GomuflixTvDetailEntity get tv => gomuTvEntitiy;
+
   List<GomuflixTvEntity> get tvRecommendations => gomuTvRecommendation;
+
   RequestState get tvState => stateVar;
+
   RequestState get recommendationState => stateVar;
+
   String get message => messageVar;
+
   String get watchlistMessage => messageVar;
 
   // Sync Tv Detail Notifier
   Future<void> syncGomuTvDetail(int id) async {
     // Declarate Variable
     final detailResult = await getGomuTvDetail.detailAction(id);
+
     final recommendationResult =
         await getGomuTvRecommendation.recommendationAction(id);
+
     stateVar = RequestState.loading;
+
     notifyListeners();
 
     // Condition
@@ -75,7 +94,9 @@ class GomuflixTvDetailNotifier extends ChangeNotifier {
   // Load Watchlist Status
   Future<void> loadWatchlistStatus(int id) async {
     final result = await getGomuTvWatchlistStatus.watchlistStatusAction(id);
+
     _isAddedtoWatchlist = result;
+
     notifyListeners();
   }
 
@@ -93,7 +114,6 @@ class GomuflixTvDetailNotifier extends ChangeNotifier {
         messageVar = successMessage;
       },
     );
-
     await loadWatchlistStatus(tv.id);
   }
 
@@ -111,7 +131,6 @@ class GomuflixTvDetailNotifier extends ChangeNotifier {
         messageVar = successMessage;
       },
     );
-
     await loadWatchlistStatus(tv.id);
   }
 }

@@ -1,15 +1,5 @@
 library gomutv;
 
-// Datasources
-export 'package:gomutv/data/datasources/gomu_tv_datasource_handler.dart';
-export 'package:gomutv/data/datasources/gomu_tv_remote_datasource.dart';
-
-// Models
-export 'package:gomutv/data/models/gomu_tv_model.dart';
-export 'package:gomutv/data/models/gomu_tv_response_model.dart';
-// Data Repositories
-export 'package:gomutv/data/repositories/gomu_tv_repository_impl.dart';
-
 // Entities
 export 'package:gomutv/domain/entities/gomu_tv_entity.dart';
 

@@ -17,14 +17,13 @@ class GomuflixTvList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final tv = gomuTv[index];
           return Container(
             width: 140,
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, GomuflixTvDetailScreen.routeName,
-                    arguments: tv.id);
+                    arguments: gomuTv[index].id);
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +32,7 @@ class GomuflixTvList extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: CachedNetworkImage(
                       width: 150,
-                      imageUrl: '$baseImageUrl${tv.posterPath}',
+                      imageUrl: '$baseImageUrl${gomuTv[index].posterPath}',
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -42,12 +41,12 @@ class GomuflixTvList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    tv.name.toString(),
+                    gomuTv[index].name.toString(),
                     style: nameText,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    tv.firstAirDate.toString().substring(0, 4),
+                    gomuTv[index].firstAirDate.toString().substring(0, 4),
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                     overflow: TextOverflow.ellipsis,
                   )

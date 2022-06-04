@@ -5,7 +5,7 @@ import 'package:gomutv/gomutv.dart';
 // Get Watchlist Case
 class GetGomuflixTvWatchlistCase {
   // Declarate Variable
-  final GomuflixTvRepository data;
+  GomuflixTvRepository data;
 
   // Callback Variable
   GetGomuflixTvWatchlistCase(this.data);
@@ -23,7 +23,7 @@ class GetGomuflixTvWatchlistCase {
 
 class RemoveGomuflixTvWatchlistCase {
   // Declarate Variable
-  final GomuflixTvRepository data;
+  GomuflixTvRepository data;
 
   // Callback Variable
   RemoveGomuflixTvWatchlistCase(this.data);
@@ -37,7 +37,7 @@ class RemoveGomuflixTvWatchlistCase {
 
 class SaveGomuflixTvWatchlistCase {
   // Declarate Variable
-  final GomuflixTvRepository data;
+  GomuflixTvRepository data;
 
   // Callback Variable
   SaveGomuflixTvWatchlistCase(this.data);

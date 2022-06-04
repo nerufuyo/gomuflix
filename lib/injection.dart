@@ -1,3 +1,4 @@
+import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:gomumovie/domain/usecases/get_gomu_movie_watchlist.dart'
