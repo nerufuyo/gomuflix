@@ -1,0 +1,96 @@
+{
+  "backdrop_path": "/path.jpg",
+  "created_by": [
+    {
+      "id": 1,
+      "credit_id": "1",
+      "name": "name",
+      "gender": 2,
+      "profile_path": "/path.jpg"
+    }
+  ],
+  "episode_run_time": [
+    1
+  ],
+  "first_air_date": "2021-09-17",
+  "genres": [
+    {
+      "id": 1,
+      "name": "Action"
+    }
+  ],
+  "homepage": "https://google.com",
+  "id": 1,
+  "in_production": false,
+  "languages": "en",
+  "last_air_date": "2021-09-17",
+  "last_episode_to_air": {
+    "air_date": "2021-09-17",
+    "episode_number": 9,
+    "id": 1,
+    "name": "name",
+    "overview": "overview",
+    "production_code": "",
+    "season_number": 1,
+    "still_path": "/path.jpg",
+    "vote_average": 1.0,
+    "vote_count": 1
+  },
+  "name": "name",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "name": "name",
+      "id": 1,
+      "logo_path": "/path.png",
+      "origin_country": ""
+    }
+  ],
+  "number_of_episodes": 1,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "KR"
+  ],
+  "original_language": "lang",
+  "original_name": "name",
+  "overview": "overview",
+  "popularity": 1,
+  "poster_path": "/path.jpg",
+  "production_companies": [
+    {
+      "id": 1,
+      "logo_path": null,
+      "name": "name",
+      "origin_country": "KR"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "KR",
+      "name": "South Korea"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2021-09-17",
+      "episode_count": 1,
+      "id": 1,
+      "name": "Season 1",
+      "overview": "name",
+      "poster_path": "/path.jpg",
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Ended",
+  "tagline": "Tagline.",
+  "type": "Scripted",
+  "vote_average": 1,
+  "vote_count": 1
+}

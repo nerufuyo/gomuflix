@@ -79,7 +79,7 @@ void init() {
       () => rwTv.RemoveGomuflixTvWatchlistCase(locator()));
 
   // repository
-  locator.registerLazySingleton<MovieRepository>(
+  locator.registerLazySingleton<GomuflixMovieRepository>(
     () => GomuflixMovieRepositoryImpl(
       remoteMovieDataSource: locator(),
     ),
@@ -92,7 +92,8 @@ void init() {
 
   // data sources
   locator.registerLazySingleton<GomuflixMovieRemoteDatasource>(() =>
-      MovieRemoteDataSourceImpl(client: locator(), databaseHelper: locator()));
+      GomuflixMovieRemoteDataSourceImpl(
+          client: locator(), databaseHelper: locator()));
   locator.registerLazySingleton<GomuflixTvRemoteApiDatasource>(() =>
       GomuflixTvRemoteApiDatasourceImpl(
           client: locator(), databaseHandlerVar: locator()));
