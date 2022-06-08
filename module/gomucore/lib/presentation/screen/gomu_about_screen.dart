@@ -11,25 +11,10 @@ class GomuflixAboutScreen extends StatefulWidget {
 
 class _GomuflixAboutScreenState extends State {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: lightRedColor,
-            size: 30,
-          ),
-        ),
         title: Text(
           'About',
           style: titleText,

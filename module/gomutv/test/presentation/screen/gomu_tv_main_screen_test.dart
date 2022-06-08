@@ -25,30 +25,101 @@ void main() {
     );
   }
 
+  // Main Screen
+  testWidgets('Page should display center progress bar when loading',
+      (WidgetTester tester) async {
+    when(mockTvListNotifier.gomuTvOnAirState).thenReturn(RequestState.loading);
+
+    when(mockTvListNotifier.gomuTvPopularState)
+        .thenReturn(RequestState.loading);
+
+    when(mockTvListNotifier.gomuTvTopRatedState)
+        .thenReturn(RequestState.loading);
+
+    await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider<GomuflixTvListNotifier>.value(
+            value: mockTvListNotifier,
+          ),
+        ],
+        child: MaterialApp(
+          home: GomuflixTvMainScreen(),
+        )));
+
+    expect(find.byType(CircularProgressIndicator), findsNWidgets(3));
+  });
+
+  testWidgets('Page should display center progress bar when loaded',
+      (WidgetTester tester) async {
+    when(mockTvListNotifier.gomuTvOnAirState).thenReturn(RequestState.loaded);
+
+    when(mockTvListNotifier.gomuTvPopularState).thenReturn(RequestState.loaded);
+
+    when(mockTvListNotifier.gomuTvTopRatedState)
+        .thenReturn(RequestState.loaded);
+
+    when(mockTvListNotifier.onAirTv).thenReturn(<GomuflixTvEntity>[]);
+
+    when(mockTvListNotifier.popularTv).thenReturn(<GomuflixTvEntity>[]);
+
+    when(mockTvListNotifier.topRatedTv).thenReturn(<GomuflixTvEntity>[]);
+
+    await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider<GomuflixTvListNotifier>.value(
+            value: mockTvListNotifier,
+          ),
+        ],
+        child: MaterialApp(
+          home: GomuflixTvMainScreen(),
+        )));
+
+    expect(find.byType(ListView), findsNWidgets(3));
+  });
+
+  testWidgets('Page should display center progress bar when error',
+      (WidgetTester tester) async {
+    when(mockTvListNotifier.gomuTvOnAirState).thenReturn(RequestState.error);
+
+    when(mockTvListNotifier.gomuTvPopularState).thenReturn(RequestState.error);
+
+    when(mockTvListNotifier.gomuTvTopRatedState).thenReturn(RequestState.error);
+
+    when(mockTvListNotifier.message).thenReturn('Error message');
+
+    await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider<GomuflixTvListNotifier>.value(
+            value: mockTvListNotifier,
+          ),
+        ],
+        child: MaterialApp(
+          home: GomuflixTvMainScreen(),
+        )));
+
+    expect(find.byKey(Key('error_message')), findsNWidgets(3));
+  });
+
   // Tv Popular
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
     when(mockTvListNotifier.state).thenReturn(RequestState.loading);
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
+    await tester.pumpWidget(_makeTestWidget(GomuflixTvPopularScreen()));
+
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('Page should display ListView when data is loaded',
+      (WidgetTester tester) async {
+    when(mockTvListNotifier.state).thenReturn(RequestState.loaded);
+
+    when(mockTvListNotifier.popularTv).thenReturn(<GomuflixTvEntity>[]);
 
     await tester.pumpWidget(_makeTestWidget(GomuflixTvPopularScreen()));
 
-    expect(progressBarFinder, findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
   });
-
-  // testWidgets('Page should display ListView when data is loaded',
-  //     (WidgetTester tester) async {
-  //   when(mockTvListNotifier.state).thenReturn(RequestState.loaded);
-
-  //   when(mockTvListNotifier.tv).thenReturn(<GomuflixTvEntity>[]);
-
-  //   final listViewFinder = find.byType(ListView);
-
-  //   await tester.pumpWidget(_makeTestWidget(GomuflixTvPopularScreen()));
-
-  //   expect(listViewFinder, findsOneWidget);
-  // });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
@@ -68,25 +139,21 @@ void main() {
       (WidgetTester tester) async {
     when(mockTvListNotifier.state).thenReturn(RequestState.loading);
 
-    final progressFinder = find.byType(CircularProgressIndicator);
+    await tester.pumpWidget(_makeTestWidget(GomuflixTvTopRatedScreen()));
+
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('Page should display when data is loaded',
+      (WidgetTester tester) async {
+    when(mockTvListNotifier.state).thenReturn(RequestState.loaded);
+
+    when(mockTvListNotifier.topRatedTv).thenReturn(<GomuflixTvEntity>[]);
 
     await tester.pumpWidget(_makeTestWidget(GomuflixTvTopRatedScreen()));
 
-    expect(progressFinder, findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
   });
-
-  // testWidgets('Page should display when data is loaded',
-  //     (WidgetTester tester) async {
-  //   when(mockTvListNotifier.state).thenReturn(RequestState.loaded);
-
-  //   when(mockTvListNotifier.tv).thenReturn(<GomuflixTvEntity>[]);
-
-  //   final listViewFinder = find.byType(ListView);
-
-  //   await tester.pumpWidget(_makeTestWidget(GomuflixTvTopRatedScreen()));
-
-  //   expect(listViewFinder, findsOneWidget);
-  // });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
@@ -94,10 +161,8 @@ void main() {
 
     when(mockTvListNotifier.message).thenReturn('Error message');
 
-    final textFinder = find.byKey(Key('error_message'));
-
     await tester.pumpWidget(_makeTestWidget(GomuflixTvTopRatedScreen()));
 
-    expect(textFinder, findsOneWidget);
+    expect(find.byKey(Key('error_message')), findsOneWidget);
   });
 }

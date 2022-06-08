@@ -8,8 +8,6 @@ class GomuflixTvSearchNotifier extends ChangeNotifier {
 
   var foundSearchTv = <GomuflixTvEntity>[];
 
-  List<GomuflixTvEntity> gomuTv = [];
-
   RequestState stateVar = RequestState.empty;
 
   String messageVar = '';
@@ -19,8 +17,6 @@ class GomuflixTvSearchNotifier extends ChangeNotifier {
 
   // Convert Variable to Value
   List<GomuflixTvEntity> get searchResult => foundSearchTv;
-
-  List<GomuflixTvEntity> get tvResult => gomuTv;
 
   RequestState get searchState => stateVar;
 

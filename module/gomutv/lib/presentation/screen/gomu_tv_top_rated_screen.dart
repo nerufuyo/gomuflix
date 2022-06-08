@@ -27,16 +27,6 @@ class _GomuflixTvTopRatedScreenState extends State<GomuflixTvTopRatedScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: lightRedColor,
-            size: 30,
-          ),
-        ),
         title: Text(
           'Top Rated',
           style: titleText,

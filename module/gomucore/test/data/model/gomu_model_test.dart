@@ -69,9 +69,11 @@ void main() {
 
   test('should be a subclass of Movie and Tv entity', () async {
     final tvResult = testTvModel.toEntity();
+
     final movieResult = tMovieModel.toEntity();
 
     expect(tvResult, testTv);
+
     expect(movieResult, testMovie);
   });
 }

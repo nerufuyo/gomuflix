@@ -38,6 +38,17 @@ void main() {
     expect(result, Right(testTvSeriesList));
   });
 
+  test('should get watchlist status from repository', () async {
+    // arrange
+    when(mockTvRepository.isAddedToWatchlist(1)).thenAnswer((_) async => true);
+
+    // act
+    final result = await tvWatchlistUsecase.watchlistStatusAction(1);
+
+    // assert
+    expect(result, true);
+  });
+
   // Remove Watchlist
   test('should remove watchlist tv from repository', () async {
     // arrange

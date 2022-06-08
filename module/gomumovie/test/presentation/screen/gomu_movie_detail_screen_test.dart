@@ -26,6 +26,7 @@ void main() {
     );
   }
 
+  // Watchlist
   testWidgets(
       'Watchlist button should display add icon when movie not added to watchlist',
       (WidgetTester tester) async {

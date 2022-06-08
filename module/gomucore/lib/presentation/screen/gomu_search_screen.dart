@@ -83,13 +83,6 @@ class GomuflixSearchScreen extends StatelessWidget {
                       itemCount: data.searchResult.length,
                     ),
                   );
-                } else if (data.stateVar == RequestState.empty) {
-                  return Center(
-                    child: Text(
-                      'Your Movie or Tv is Empty',
-                      style: subNameText,
-                    ),
-                  );
                 } else {
                   return Expanded(
                     child: Container(),
@@ -113,13 +106,6 @@ class GomuflixSearchScreen extends StatelessWidget {
                             data.searchResult[index]);
                       },
                       itemCount: result.length,
-                    ),
-                  );
-                } else if (data.stateVar == RequestState.empty) {
-                  return Center(
-                    child: Text(
-                      'Your Movie or Tv is Empty',
-                      style: subNameText,
                     ),
                   );
                 } else {

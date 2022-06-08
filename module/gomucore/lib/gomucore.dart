@@ -23,8 +23,8 @@ export 'package:gomucore/data/repositories/gomu_tv_repository_impl.dart';
 // Screen
 export 'package:gomucore/presentation/screen/gomu_about_screen.dart';
 export 'package:gomucore/presentation/screen/gomu_splash_screen.dart';
-export 'package:gomucore/presentation/screen/gomu_search_screen.dart';
 export 'package:gomucore/presentation/screen/gomu_watchlist_screen.dart';
+export 'package:gomucore/presentation/screen/gomu_search_screen.dart';
 
 // Widget
 export 'package:gomucore/presentation/widget/gomu_constant_widget.dart';

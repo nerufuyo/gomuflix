@@ -18,14 +18,17 @@ void main() {
   });
 
   final testTv = <GomuflixTvEntity>[];
+
   final testQuery = 'Spiderman';
 
   test('should get list of tv from the repository', () async {
     // arrange
     when(mockTvRepository.searchGomuflixTvAct(testQuery))
         .thenAnswer((_) async => Right(testTv));
+
     // act
     final result = await tvSearchUsecase.execute(testQuery);
+
     // assert
     expect(result, Right(testTv));
   });

@@ -43,7 +43,7 @@ void main() {
 
   final tQuery = 'spiderman';
 
-  group('search TV Series', () {
+  group('search Tv', () {
     test('should change state to loading when usecase is called', () async {
       // arrange
       when(mockSearchTv.execute(tQuery))

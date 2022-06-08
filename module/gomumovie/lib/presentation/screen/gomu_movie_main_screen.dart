@@ -1,7 +1,6 @@
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:flutter/material.dart';
-import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
 
 class GomuflixMovieMainScreen extends StatefulWidget {
@@ -28,14 +27,7 @@ class _GomuflixMovieMainScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: GomuflixDrawerWidget(
-        onTapGomuflixMoviesScreen: () {
-          Navigator.pop(context);
-        },
-        onTapGomuflixTvScreen: () {
-          Navigator.pushNamed(context, GomuflixTvMainScreen.routeName);
-        },
-      ),
+      drawer: GomuflixDrawerWidget(),
       appBar: AppBar(
         centerTitle: true,
         title: Text(

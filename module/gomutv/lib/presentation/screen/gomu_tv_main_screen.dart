@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gomucore/gomucore.dart';
-import 'package:gomumovie/gomumovie.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
 
@@ -26,14 +25,7 @@ class _GomuflixTvMainScreenState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: GomuflixDrawerWidget(
-        onTapGomuflixMoviesScreen: () {
-          Navigator.pushNamed(context, GomuflixMovieMainScreen.routeName);
-        },
-        onTapGomuflixTvScreen: () {
-          Navigator.pop(context);
-        },
-      ),
+      drawer: GomuflixDrawerWidget(),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -134,12 +126,12 @@ class _GomuflixTvMainScreenState extends State {
                   const ContentDivider(),
                   Consumer<GomuflixTvListNotifier>(
                     builder: (context, data, child) {
-                      final state = data.gomuTvPopularState;
-                      if (state == RequestState.loading) {
+                      if (data.gomuTvPopularState == RequestState.loading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
+                      } else if (data.gomuTvPopularState ==
+                          RequestState.loaded) {
                         return GomuflixTvList(data.popularTv);
                       } else {
                         return Center(
@@ -169,7 +161,7 @@ class _GomuflixTvMainScreenState extends State {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, GomuflixTvPopularScreen.routeName);
+                              context, GomuflixTvTopRatedScreen.routeName);
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -189,12 +181,12 @@ class _GomuflixTvMainScreenState extends State {
                   const ContentDivider(),
                   Consumer<GomuflixTvListNotifier>(
                     builder: (context, data, child) {
-                      final state = data.gomuTvTopRatedState;
-                      if (state == RequestState.loading) {
+                      if (data.gomuTvTopRatedState == RequestState.loading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
+                      } else if (data.gomuTvTopRatedState ==
+                          RequestState.loaded) {
                         return GomuflixTvList(data.topRatedTv);
                       } else {
                         return Center(

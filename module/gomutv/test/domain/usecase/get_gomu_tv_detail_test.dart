@@ -26,8 +26,10 @@ void main() {
     // arrange
     when(mockTvRepository.getGomuflixTvDetailAct(tId))
         .thenAnswer((_) async => Right(testTvSeriesDetail));
+
     // act
     final result = await tvDetailUsecase.detailAction(tId);
+
     // assert
     expect(result, Right(testTvSeriesDetail));
   });
@@ -36,8 +38,10 @@ void main() {
     // arrange
     when(mockTvRepository.getGomuflixTvRecommendationAct(tId))
         .thenAnswer((_) async => Right(testTv));
+
     // act
     final result = await tvDetailUsecase.recommendationAction(tId);
+
     // assert
     expect(result, Right(testTv));
   });

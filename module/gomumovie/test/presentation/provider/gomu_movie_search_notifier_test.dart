@@ -43,6 +43,7 @@ void main() {
     voteCount: 13507,
   );
   final testMovieList = <GomuflixMovieEntity>[tMovieModel];
+
   final testQuery = 'spiderman';
 
   group('search movies', () {

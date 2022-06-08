@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gomucore/gomucore.dart';
+import 'package:gomumovie/gomumovie.dart';
+import 'package:gomutv/gomutv.dart';
 
 class GomuflixDrawerWidget extends StatelessWidget {
-  final Function() onTapGomuflixMoviesScreen;
-  final Function() onTapGomuflixTvScreen;
-
-  // ignore: use_key_in_widget_constructors
-  const GomuflixDrawerWidget({
-    required this.onTapGomuflixMoviesScreen,
-    required this.onTapGomuflixTvScreen,
-  });
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +27,9 @@ class GomuflixDrawerWidget extends StatelessWidget {
                 'Movies',
                 style: subNameText,
               ),
-              onTap: onTapGomuflixMoviesScreen,
+              onTap: () {
+                Navigator.pushNamed(context, GomuflixMovieMainScreen.routeName);
+              },
             ),
             ListTile(
               leading: const Icon(
@@ -45,7 +40,9 @@ class GomuflixDrawerWidget extends StatelessWidget {
                 'Television',
                 style: subNameText,
               ),
-              onTap: onTapGomuflixTvScreen,
+              onTap: () {
+                Navigator.pushNamed(context, GomuflixTvMainScreen.routeName);
+              },
             ),
             ListTile(
               leading: const Icon(
