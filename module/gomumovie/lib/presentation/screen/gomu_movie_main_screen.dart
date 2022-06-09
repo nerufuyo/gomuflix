@@ -109,7 +109,7 @@ class _GomuflixMovieMainScreenState extends State {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, GomuflixMoviePopularScreen.ROUTE_NAME);
+                              context, GomuflixMoviePopularScreen.routeName);
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -164,7 +164,7 @@ class _GomuflixMovieMainScreenState extends State {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, GomuflixMovieTopRatedScreen.ROUTE_NAME);
+                              context, GomuflixMovieTopRatedScreen.routeName);
                         },
                         child: Container(
                           decoration: BoxDecoration(

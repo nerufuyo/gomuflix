@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class GomuflixMovieTopRatedScreen extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-movie';
+  static const routeName = '/top-rated-movie';
 
   const GomuflixMovieTopRatedScreen({Key? key}) : super(key: key);
 

@@ -17,7 +17,6 @@ class GomuflixMovieList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final movie = gomuMovie[index];
           return Container(
             width: 140,
             padding: const EdgeInsets.all(8),
@@ -25,7 +24,7 @@ class GomuflixMovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                     context, GomuflixMovieDetailScreen.routeName,
-                    arguments: movie.id);
+                    arguments: gomuMovie[index].id);
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +33,7 @@ class GomuflixMovieList extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: CachedNetworkImage(
                       width: 150,
-                      imageUrl: '$baseImageUrl${movie.posterPath}',
+                      imageUrl: '$baseImageUrl${gomuMovie[index].posterPath}',
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
@@ -43,12 +42,12 @@ class GomuflixMovieList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    movie.title.toString(),
+                    gomuMovie[index].title.toString(),
                     style: nameText,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    movie.releaseDate.toString().substring(0, 4),
+                    gomuMovie[index].releaseDate.toString().substring(0, 4),
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                     overflow: TextOverflow.ellipsis,
                   )

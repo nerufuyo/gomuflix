@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             create: (_) => di.locator<GomuflixTvSearchNotifier>()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Gomuflix',
         theme: ThemeData.dark().copyWith(
           colorScheme: themeColor,
           primaryColor: blackColor,
@@ -52,10 +52,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => GomuflixMovieMainScreen());
             //
-            case GomuflixMoviePopularScreen.ROUTE_NAME:
+            case GomuflixMoviePopularScreen.routeName:
               return CupertinoPageRoute(
                   builder: (_) => GomuflixMoviePopularScreen());
-            case GomuflixMovieTopRatedScreen.ROUTE_NAME:
+            case GomuflixMovieTopRatedScreen.routeName:
               return CupertinoPageRoute(
                   builder: (_) => GomuflixMovieTopRatedScreen());
             case GomuflixMovieDetailScreen.routeName:

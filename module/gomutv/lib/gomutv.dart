@@ -26,3 +26,4 @@ export 'package:gomutv/presentation/screen/gomu_tv_top_rated_screen.dart';
 // Widget
 export 'package:gomutv/presentation/widget/gomu_tv_content_card_widget.dart';
 export 'package:gomutv/presentation/widget/gomu_tv_content_poster_widget.dart';
+export 'package:gomutv/presentation/widget/gomu_tv_content_detail_widget.dart';

@@ -29,3 +29,4 @@ export 'package:gomumovie/presentation/screen/gomu_movie_main_screen.dart';
 // Widget
 export 'package:gomumovie/presentation/widget/gomu_movie_content_poster_widget.dart';
 export 'package:gomumovie/presentation/widget/gomu_movie_content_card_widget.dart';
+export 'package:gomumovie/presentation/widget/gomu_movie_content_detail_widget.dart';

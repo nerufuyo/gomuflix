@@ -268,6 +268,7 @@ void main() {
       // arrange
       when(mockGetDetail.detailAction(tId))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+
       when(mockGetDetail.recommendationAction(tId))
           .thenAnswer((_) async => Right(tTvs));
 
