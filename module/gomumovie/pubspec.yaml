@@ -23,8 +23,11 @@ dependencies:
   path_provider: ^2.0.10
   sqflite: ^2.0.2+1
   get_it: ^7.2.0
+  bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
+  bloc_test: ^9.0.3
   build_runner: ^2.1.11
   mockito: ^5.2.0
   flutter_test:

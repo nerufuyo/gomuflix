@@ -13,6 +13,22 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void init() {
+  // Bloc
+  locator.registerFactory(() => GomuTvOnAirBloc(locator()));
+
+  locator.registerFactory(() => GomuTvPopularBloc(locator()));
+
+  locator.registerFactory(() => GomuTvTopRatedBloc(locator()));
+
+  locator.registerFactory(() => GomuTvDetailBloc(locator()));
+
+  locator.registerFactory(() => GomuTvRecommendationBloc(locator()));
+
+  locator.registerFactory(
+      () => GomuTvWatchlistBloc(locator(), locator(), locator(), locator()));
+
+  locator.registerFactory(() => GomuTvSearchBloc(locator()));
+
   // provider
   locator.registerFactory(
     () => GomuflixMovieListNotifier(
@@ -20,14 +36,6 @@ void init() {
       getPopularMovies: locator(),
       getTopRatedMovies: locator(),
       getWatchlistMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => GomuflixTvListNotifier(
-      getGomuTvOnAirCase: locator(),
-      getGomuTvPopularCase: locator(),
-      getGomuTvTopRatedCase: locator(),
-      getGomuTvWatchlistCase: locator(),
     ),
   );
   locator.registerFactory(
@@ -39,23 +47,10 @@ void init() {
       removeGomuMovieWatchlist: locator(),
     ),
   );
-  locator.registerFactory(
-    () => GomuflixTvDetailNotifier(
-      getGomuTvDetail: locator(),
-      getGomuTvRecommendation: locator(),
-      getGomuTvWatchlistStatus: locator(),
-      saveGomuTvWatchlist: locator(),
-      removeGomuTvWatchlist: locator(),
-    ),
-  );
+
   locator.registerFactory(
     () => GomuflixMovieSearchNotifier(
       searchMovie: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => GomuflixTvSearchNotifier(
-      searchTv: locator(),
     ),
   );
 
@@ -73,6 +68,9 @@ void init() {
   locator.registerLazySingleton(() => GetGomuflixTvDetailCase(locator()));
   locator.registerLazySingleton(() => SearchGomuflixTvCase(locator()));
   locator.registerLazySingleton(() => GetGomuflixTvWatchlistCase(locator()));
+  locator
+      .registerLazySingleton(() => GetGomuflixTvWatchlistStatusCase(locator()));
+
   locator
       .registerLazySingleton(() => swTv.SaveGomuflixTvWatchlistCase(locator()));
   locator.registerLazySingleton(

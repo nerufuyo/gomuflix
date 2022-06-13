@@ -9,6 +9,8 @@ import '../handler/handler_test.mocks.dart';
 void main() {
   late GetGomuflixTvWatchlistCase tvWatchlistUsecase;
 
+  late GetGomuflixTvWatchlistStatusCase tvWatchlistStatusUsecase;
+
   late RemoveGomuflixTvWatchlistCase tvRemoveWatchlistUsecase;
 
   late SaveGomuflixTvWatchlistCase tvSaveWatchlistUsecase;
@@ -19,6 +21,9 @@ void main() {
     mockTvRepository = MockGomuflixTvRepository();
 
     tvWatchlistUsecase = GetGomuflixTvWatchlistCase(mockTvRepository);
+
+    tvWatchlistStatusUsecase =
+        GetGomuflixTvWatchlistStatusCase(mockTvRepository);
 
     tvRemoveWatchlistUsecase = RemoveGomuflixTvWatchlistCase(mockTvRepository);
 
@@ -43,7 +48,7 @@ void main() {
     when(mockTvRepository.isAddedToWatchlist(1)).thenAnswer((_) async => true);
 
     // act
-    final result = await tvWatchlistUsecase.watchlistStatusAction(1);
+    final result = await tvWatchlistStatusUsecase.watchlistStatusAction(1);
 
     // assert
     expect(result, true);

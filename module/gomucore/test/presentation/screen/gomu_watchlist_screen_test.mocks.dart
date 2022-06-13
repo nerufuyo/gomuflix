@@ -3,11 +3,14 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i5;
-import 'dart:ui' as _i6;
+import 'dart:ui' as _i8;
 
-import 'package:gomucore/gomucore.dart' as _i4;
-import 'package:gomumovie/gomumovie.dart' as _i3;
-import 'package:gomutv/gomutv.dart' as _i2;
+import 'package:bloc/bloc.dart' as _i6;
+import 'package:gomucore/gomucore.dart' as _i7;
+import 'package:gomumovie/gomumovie.dart' as _i4;
+import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart' as _i2;
+import 'package:gomutv/presentation/bloc/gomu_tv_watchlist_bloc/gomu_tv_watchlist_bloc.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -20,202 +23,109 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeGetGomuflixTvListCase_0 extends _i1.Fake
-    implements _i2.GetGomuflixTvListCase {}
-
-class _FakeGetGomuflixTvWatchlistCase_1 extends _i1.Fake
+class _FakeGetGomuflixTvWatchlistCase_0 extends _i1.Fake
     implements _i2.GetGomuflixTvWatchlistCase {}
 
-class _FakeGetGomuflixMovieListCase_2 extends _i1.Fake
-    implements _i3.GetGomuflixMovieListCase {}
+class _FakeGetGomuflixTvWatchlistStatusCase_1 extends _i1.Fake
+    implements _i2.GetGomuflixTvWatchlistStatusCase {}
 
-class _FakeGetGomuflixMovieWatchlistCase_3 extends _i1.Fake
-    implements _i3.GetGomuflixMovieWatchlistCase {}
+class _FakeSaveGomuflixTvWatchlistCase_2 extends _i1.Fake
+    implements _i2.SaveGomuflixTvWatchlistCase {}
 
-/// A class which mocks [GomuflixTvListNotifier].
+class _FakeRemoveGomuflixTvWatchlistCase_3 extends _i1.Fake
+    implements _i2.RemoveGomuflixTvWatchlistCase {}
+
+class _FakeGomuTvWatchlistState_4 extends _i1.Fake
+    implements _i3.GomuTvWatchlistState {}
+
+class _FakeGetGomuflixMovieListCase_5 extends _i1.Fake
+    implements _i4.GetGomuflixMovieListCase {}
+
+class _FakeGetGomuflixMovieWatchlistCase_6 extends _i1.Fake
+    implements _i4.GetGomuflixMovieWatchlistCase {}
+
+/// A class which mocks [GomuTvWatchlistBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGomuflixTvListNotifier extends _i1.Mock
-    implements _i2.GomuflixTvListNotifier {
-  MockGomuflixTvListNotifier() {
+class MockGomuTvWatchlistBloc extends _i1.Mock
+    implements _i3.GomuTvWatchlistBloc {
+  MockGomuTvWatchlistBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetGomuflixTvListCase get getGomuTvOnAirCase =>
-      (super.noSuchMethod(Invocation.getter(#getGomuTvOnAirCase),
-              returnValue: _FakeGetGomuflixTvListCase_0())
-          as _i2.GetGomuflixTvListCase);
-  @override
-  set getGomuTvOnAirCase(_i2.GetGomuflixTvListCase? _getGomuTvOnAirCase) =>
-      super.noSuchMethod(
-          Invocation.setter(#getGomuTvOnAirCase, _getGomuTvOnAirCase),
-          returnValueForMissingStub: null);
-  @override
-  _i2.GetGomuflixTvListCase get getGomuTvPopularCase =>
-      (super.noSuchMethod(Invocation.getter(#getGomuTvPopularCase),
-              returnValue: _FakeGetGomuflixTvListCase_0())
-          as _i2.GetGomuflixTvListCase);
-  @override
-  set getGomuTvPopularCase(_i2.GetGomuflixTvListCase? _getGomuTvPopularCase) =>
-      super.noSuchMethod(
-          Invocation.setter(#getGomuTvPopularCase, _getGomuTvPopularCase),
-          returnValueForMissingStub: null);
-  @override
-  _i2.GetGomuflixTvListCase get getGomuTvTopRatedCase =>
-      (super.noSuchMethod(Invocation.getter(#getGomuTvTopRatedCase),
-              returnValue: _FakeGetGomuflixTvListCase_0())
-          as _i2.GetGomuflixTvListCase);
-  @override
-  set getGomuTvTopRatedCase(
-          _i2.GetGomuflixTvListCase? _getGomuTvTopRatedCase) =>
-      super.noSuchMethod(
-          Invocation.setter(#getGomuTvTopRatedCase, _getGomuTvTopRatedCase),
-          returnValueForMissingStub: null);
-  @override
   _i2.GetGomuflixTvWatchlistCase get getGomuTvWatchlistCase =>
       (super.noSuchMethod(Invocation.getter(#getGomuTvWatchlistCase),
-              returnValue: _FakeGetGomuflixTvWatchlistCase_1())
+              returnValue: _FakeGetGomuflixTvWatchlistCase_0())
           as _i2.GetGomuflixTvWatchlistCase);
   @override
-  set getGomuTvWatchlistCase(
-          _i2.GetGomuflixTvWatchlistCase? _getGomuTvWatchlistCase) =>
-      super.noSuchMethod(
-          Invocation.setter(#getGomuTvWatchlistCase, _getGomuTvWatchlistCase),
-          returnValueForMissingStub: null);
+  _i2.GetGomuflixTvWatchlistStatusCase get getGomuTvWatchlistStatusCase =>
+      (super.noSuchMethod(Invocation.getter(#getGomuTvWatchlistStatusCase),
+              returnValue: _FakeGetGomuflixTvWatchlistStatusCase_1())
+          as _i2.GetGomuflixTvWatchlistStatusCase);
   @override
-  List<_i2.GomuflixTvEntity> get onAirTvVar =>
-      (super.noSuchMethod(Invocation.getter(#onAirTvVar),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
+  _i2.SaveGomuflixTvWatchlistCase get saveGomuTvWatchlistCase =>
+      (super.noSuchMethod(Invocation.getter(#saveGomuTvWatchlistCase),
+              returnValue: _FakeSaveGomuflixTvWatchlistCase_2())
+          as _i2.SaveGomuflixTvWatchlistCase);
   @override
-  set onAirTvVar(List<_i2.GomuflixTvEntity>? _onAirTvVar) =>
-      super.noSuchMethod(Invocation.setter(#onAirTvVar, _onAirTvVar),
-          returnValueForMissingStub: null);
+  _i2.RemoveGomuflixTvWatchlistCase get removeGomuTvWatchlistCase =>
+      (super.noSuchMethod(Invocation.getter(#removeGomuTvWatchlistCase),
+              returnValue: _FakeRemoveGomuflixTvWatchlistCase_3())
+          as _i2.RemoveGomuflixTvWatchlistCase);
   @override
-  List<_i2.GomuflixTvEntity> get popularTvVar =>
-      (super.noSuchMethod(Invocation.getter(#popularTvVar),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
+  _i3.GomuTvWatchlistState get state => (super.noSuchMethod(
+      Invocation.getter(#state),
+      returnValue: _FakeGomuTvWatchlistState_4()) as _i3.GomuTvWatchlistState);
   @override
-  set popularTvVar(List<_i2.GomuflixTvEntity>? _popularTvVar) =>
-      super.noSuchMethod(Invocation.setter(#popularTvVar, _popularTvVar),
-          returnValueForMissingStub: null);
+  _i5.Stream<_i3.GomuTvWatchlistState> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i3.GomuTvWatchlistState>.empty())
+          as _i5.Stream<_i3.GomuTvWatchlistState>);
   @override
-  List<_i2.GomuflixTvEntity> get topRatedTvVar =>
-      (super.noSuchMethod(Invocation.getter(#topRatedTvVar),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  set topRatedTvVar(List<_i2.GomuflixTvEntity>? _topRatedTvVar) =>
-      super.noSuchMethod(Invocation.setter(#topRatedTvVar, _topRatedTvVar),
-          returnValueForMissingStub: null);
-  @override
-  List<_i2.GomuflixTvEntity> get watchlistTvVar =>
-      (super.noSuchMethod(Invocation.getter(#watchlistTvVar),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  set watchlistTvVar(List<_i2.GomuflixTvEntity>? _watchlistTvVar) =>
-      super.noSuchMethod(Invocation.setter(#watchlistTvVar, _watchlistTvVar),
-          returnValueForMissingStub: null);
-  @override
-  List<_i2.GomuflixTvEntity> get gomuTv =>
-      (super.noSuchMethod(Invocation.getter(#gomuTv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  set gomuTv(List<_i2.GomuflixTvEntity>? _gomuTv) =>
-      super.noSuchMethod(Invocation.setter(#gomuTv, _gomuTv),
-          returnValueForMissingStub: null);
-  @override
-  _i4.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i4.RequestState.empty) as _i4.RequestState);
-  @override
-  set state(_i4.RequestState? _state) =>
-      super.noSuchMethod(Invocation.setter(#state, _state),
-          returnValueForMissingStub: null);
-  @override
-  String get messageVar =>
-      (super.noSuchMethod(Invocation.getter(#messageVar), returnValue: '')
-          as String);
-  @override
-  set messageVar(String? _messageVar) =>
-      super.noSuchMethod(Invocation.setter(#messageVar, _messageVar),
-          returnValueForMissingStub: null);
-  @override
-  List<_i2.GomuflixTvEntity> get onAirTv =>
-      (super.noSuchMethod(Invocation.getter(#onAirTv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  List<_i2.GomuflixTvEntity> get popularTv =>
-      (super.noSuchMethod(Invocation.getter(#popularTv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  List<_i2.GomuflixTvEntity> get topRatedTv =>
-      (super.noSuchMethod(Invocation.getter(#topRatedTv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  List<_i2.GomuflixTvEntity> get watchlistTv =>
-      (super.noSuchMethod(Invocation.getter(#watchlistTv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  List<_i2.GomuflixTvEntity> get tv =>
-      (super.noSuchMethod(Invocation.getter(#tv),
-          returnValue: <_i2.GomuflixTvEntity>[]) as List<_i2.GomuflixTvEntity>);
-  @override
-  _i4.RequestState get gomuTvOnAirState =>
-      (super.noSuchMethod(Invocation.getter(#gomuTvOnAirState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
-  @override
-  _i4.RequestState get gomuTvPopularState =>
-      (super.noSuchMethod(Invocation.getter(#gomuTvPopularState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
-  @override
-  _i4.RequestState get gomuTvTopRatedState =>
-      (super.noSuchMethod(Invocation.getter(#gomuTvTopRatedState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
-  @override
-  _i4.RequestState get gomuTvWatchlistState =>
-      (super.noSuchMethod(Invocation.getter(#gomuTvWatchlistState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
-  @override
-  String get message =>
-      (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
-          as String);
-  @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  _i5.Future<void> syncGomuTvOnAir() =>
-      (super.noSuchMethod(Invocation.method(#syncGomuTvOnAir, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> syncGomuTvPopular() =>
-      (super.noSuchMethod(Invocation.method(#syncGomuTvPopular, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> syncGomuTvTopRated() =>
-      (super.noSuchMethod(Invocation.method(#syncGomuTvTopRated, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<void> syncGomuTvWatchlist() =>
-      (super.noSuchMethod(Invocation.method(#syncGomuTvWatchlist, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  void addListener(_i6.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+  void add(_i3.GomuTvWatchlistEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i6.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+  void onEvent(_i3.GomuTvWatchlistEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]),
           returnValueForMissingStub: null);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
+  void emit(_i3.GomuTvWatchlistState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]),
+          returnValueForMissingStub: null);
   @override
-  void notifyListeners() =>
-      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+  void on<E extends _i3.GomuTvWatchlistEvent>(
+          _i6.EventHandler<E, _i3.GomuTvWatchlistState>? handler,
+          {_i6.EventTransformer<E>? transformer}) =>
+      super.noSuchMethod(
+          Invocation.method(#on, [handler], {#transformer: transformer}),
+          returnValueForMissingStub: null);
+  @override
+  void onTransition(
+          _i6.Transition<_i3.GomuTvWatchlistEvent, _i3.GomuTvWatchlistState>?
+              transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]),
+          returnValueForMissingStub: null);
+  @override
+  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  void onChange(_i6.Change<_i3.GomuTvWatchlistState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]),
+          returnValueForMissingStub: null);
+  @override
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
 }
 
@@ -223,104 +133,104 @@ class MockGomuflixTvListNotifier extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGomuflixMovieListNotifier extends _i1.Mock
-    implements _i3.GomuflixMovieListNotifier {
+    implements _i4.GomuflixMovieListNotifier {
   MockGomuflixMovieListNotifier() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.GetGomuflixMovieListCase get getNowPlayingMovies =>
+  _i4.GetGomuflixMovieListCase get getNowPlayingMovies =>
       (super.noSuchMethod(Invocation.getter(#getNowPlayingMovies),
-              returnValue: _FakeGetGomuflixMovieListCase_2())
-          as _i3.GetGomuflixMovieListCase);
+              returnValue: _FakeGetGomuflixMovieListCase_5())
+          as _i4.GetGomuflixMovieListCase);
   @override
-  set getNowPlayingMovies(_i3.GetGomuflixMovieListCase? _getNowPlayingMovies) =>
+  set getNowPlayingMovies(_i4.GetGomuflixMovieListCase? _getNowPlayingMovies) =>
       super.noSuchMethod(
           Invocation.setter(#getNowPlayingMovies, _getNowPlayingMovies),
           returnValueForMissingStub: null);
   @override
-  _i3.GetGomuflixMovieListCase get getPopularMovies =>
+  _i4.GetGomuflixMovieListCase get getPopularMovies =>
       (super.noSuchMethod(Invocation.getter(#getPopularMovies),
-              returnValue: _FakeGetGomuflixMovieListCase_2())
-          as _i3.GetGomuflixMovieListCase);
+              returnValue: _FakeGetGomuflixMovieListCase_5())
+          as _i4.GetGomuflixMovieListCase);
   @override
-  set getPopularMovies(_i3.GetGomuflixMovieListCase? _getPopularMovies) => super
+  set getPopularMovies(_i4.GetGomuflixMovieListCase? _getPopularMovies) => super
       .noSuchMethod(Invocation.setter(#getPopularMovies, _getPopularMovies),
           returnValueForMissingStub: null);
   @override
-  _i3.GetGomuflixMovieListCase get getTopRatedMovies =>
+  _i4.GetGomuflixMovieListCase get getTopRatedMovies =>
       (super.noSuchMethod(Invocation.getter(#getTopRatedMovies),
-              returnValue: _FakeGetGomuflixMovieListCase_2())
-          as _i3.GetGomuflixMovieListCase);
+              returnValue: _FakeGetGomuflixMovieListCase_5())
+          as _i4.GetGomuflixMovieListCase);
   @override
-  set getTopRatedMovies(_i3.GetGomuflixMovieListCase? _getTopRatedMovies) =>
+  set getTopRatedMovies(_i4.GetGomuflixMovieListCase? _getTopRatedMovies) =>
       super.noSuchMethod(
           Invocation.setter(#getTopRatedMovies, _getTopRatedMovies),
           returnValueForMissingStub: null);
   @override
-  _i3.GetGomuflixMovieWatchlistCase get getWatchlistMovies =>
+  _i4.GetGomuflixMovieWatchlistCase get getWatchlistMovies =>
       (super.noSuchMethod(Invocation.getter(#getWatchlistMovies),
-              returnValue: _FakeGetGomuflixMovieWatchlistCase_3())
-          as _i3.GetGomuflixMovieWatchlistCase);
+              returnValue: _FakeGetGomuflixMovieWatchlistCase_6())
+          as _i4.GetGomuflixMovieWatchlistCase);
   @override
   set getWatchlistMovies(
-          _i3.GetGomuflixMovieWatchlistCase? _getWatchlistMovies) =>
+          _i4.GetGomuflixMovieWatchlistCase? _getWatchlistMovies) =>
       super.noSuchMethod(
           Invocation.setter(#getWatchlistMovies, _getWatchlistMovies),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get nowPlayingMovieVar =>
+  List<_i4.GomuflixMovieEntity> get nowPlayingMovieVar =>
       (super.noSuchMethod(Invocation.getter(#nowPlayingMovieVar),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  set nowPlayingMovieVar(List<_i3.GomuflixMovieEntity>? _nowPlayingMovieVar) =>
+  set nowPlayingMovieVar(List<_i4.GomuflixMovieEntity>? _nowPlayingMovieVar) =>
       super.noSuchMethod(
           Invocation.setter(#nowPlayingMovieVar, _nowPlayingMovieVar),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get popularMovieVar =>
+  List<_i4.GomuflixMovieEntity> get popularMovieVar =>
       (super.noSuchMethod(Invocation.getter(#popularMovieVar),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  set popularMovieVar(List<_i3.GomuflixMovieEntity>? _popularMovieVar) =>
+  set popularMovieVar(List<_i4.GomuflixMovieEntity>? _popularMovieVar) =>
       super.noSuchMethod(Invocation.setter(#popularMovieVar, _popularMovieVar),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get topRatedMovieVar =>
+  List<_i4.GomuflixMovieEntity> get topRatedMovieVar =>
       (super.noSuchMethod(Invocation.getter(#topRatedMovieVar),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  set topRatedMovieVar(List<_i3.GomuflixMovieEntity>? _topRatedMovieVar) =>
+  set topRatedMovieVar(List<_i4.GomuflixMovieEntity>? _topRatedMovieVar) =>
       super.noSuchMethod(
           Invocation.setter(#topRatedMovieVar, _topRatedMovieVar),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get watchlistMovieVar =>
+  List<_i4.GomuflixMovieEntity> get watchlistMovieVar =>
       (super.noSuchMethod(Invocation.getter(#watchlistMovieVar),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  set watchlistMovieVar(List<_i3.GomuflixMovieEntity>? _watchlistMovieVar) =>
+  set watchlistMovieVar(List<_i4.GomuflixMovieEntity>? _watchlistMovieVar) =>
       super.noSuchMethod(
           Invocation.setter(#watchlistMovieVar, _watchlistMovieVar),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get gomuMovie =>
+  List<_i4.GomuflixMovieEntity> get gomuMovie =>
       (super.noSuchMethod(Invocation.getter(#gomuMovie),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  set gomuMovie(List<_i3.GomuflixMovieEntity>? _gomuMovie) =>
+  set gomuMovie(List<_i4.GomuflixMovieEntity>? _gomuMovie) =>
       super.noSuchMethod(Invocation.setter(#gomuMovie, _gomuMovie),
           returnValueForMissingStub: null);
   @override
-  _i4.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i4.RequestState.empty) as _i4.RequestState);
+  _i7.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i7.RequestState.empty) as _i7.RequestState);
   @override
-  set state(_i4.RequestState? _state) =>
+  set state(_i7.RequestState? _state) =>
       super.noSuchMethod(Invocation.setter(#state, _state),
           returnValueForMissingStub: null);
   @override
@@ -332,46 +242,46 @@ class MockGomuflixMovieListNotifier extends _i1.Mock
       super.noSuchMethod(Invocation.setter(#messageVar, _messageVar),
           returnValueForMissingStub: null);
   @override
-  List<_i3.GomuflixMovieEntity> get nowPlayingMovies =>
+  List<_i4.GomuflixMovieEntity> get nowPlayingMovies =>
       (super.noSuchMethod(Invocation.getter(#nowPlayingMovies),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  List<_i3.GomuflixMovieEntity> get popularMovies =>
+  List<_i4.GomuflixMovieEntity> get popularMovies =>
       (super.noSuchMethod(Invocation.getter(#popularMovies),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  List<_i3.GomuflixMovieEntity> get topRatedMovies =>
+  List<_i4.GomuflixMovieEntity> get topRatedMovies =>
       (super.noSuchMethod(Invocation.getter(#topRatedMovies),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  List<_i3.GomuflixMovieEntity> get watchlistMovies =>
+  List<_i4.GomuflixMovieEntity> get watchlistMovies =>
       (super.noSuchMethod(Invocation.getter(#watchlistMovies),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  List<_i3.GomuflixMovieEntity> get movie =>
+  List<_i4.GomuflixMovieEntity> get movie =>
       (super.noSuchMethod(Invocation.getter(#movie),
-              returnValue: <_i3.GomuflixMovieEntity>[])
-          as List<_i3.GomuflixMovieEntity>);
+              returnValue: <_i4.GomuflixMovieEntity>[])
+          as List<_i4.GomuflixMovieEntity>);
   @override
-  _i4.RequestState get gomuMovieNowPlayingState =>
+  _i7.RequestState get gomuMovieNowPlayingState =>
       (super.noSuchMethod(Invocation.getter(#gomuMovieNowPlayingState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
+          returnValue: _i7.RequestState.empty) as _i7.RequestState);
   @override
-  _i4.RequestState get gomuMoviePopularState =>
+  _i7.RequestState get gomuMoviePopularState =>
       (super.noSuchMethod(Invocation.getter(#gomuMoviePopularState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
+          returnValue: _i7.RequestState.empty) as _i7.RequestState);
   @override
-  _i4.RequestState get gomuMovieTopRatedState =>
+  _i7.RequestState get gomuMovieTopRatedState =>
       (super.noSuchMethod(Invocation.getter(#gomuMovieTopRatedState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
+          returnValue: _i7.RequestState.empty) as _i7.RequestState);
   @override
-  _i4.RequestState get gomuMovieWatchlistState =>
+  _i7.RequestState get gomuMovieWatchlistState =>
       (super.noSuchMethod(Invocation.getter(#gomuMovieWatchlistState),
-          returnValue: _i4.RequestState.empty) as _i4.RequestState);
+          returnValue: _i7.RequestState.empty) as _i7.RequestState);
   @override
   String get message =>
       (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
@@ -401,11 +311,11 @@ class MockGomuflixMovieListNotifier extends _i1.Mock
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  void addListener(_i6.VoidCallback? listener) =>
+  void addListener(_i8.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i6.VoidCallback? listener) =>
+  void removeListener(_i8.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +19,8 @@ class _GomuflixTvPopularScreenState extends State {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<GomuflixTvListNotifier>(context, listen: false)
-            .syncGomuTvPopular());
+        Provider.of<GomuTvPopularBloc>(context, listen: false)
+            .add(GomuTvListEvent()));
   }
 
   @override
@@ -44,27 +45,26 @@ class _GomuflixTvPopularScreenState extends State {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<GomuflixTvListNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<GomuTvPopularBloc, GomuTvListState>(
+          builder: (context, state) {
+            if (state is GomuTvListLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is GomuTvListLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  return GomuflixTvContentCardWidget(data.popularTv[index]);
+                  return GomuflixTvContentCardWidget(state.gomuTvs[index]);
                 },
-                itemCount: data.popularTv.length,
+                itemCount: state.gomuTvs.length,
               );
-            } else {
+            } else if (state is GomuTvListError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(
-                  data.message,
-                  style: subNameText,
-                ),
+                child: Text(state.errorMessage),
               );
+            } else {
+              return Container();
             }
           },
         ),

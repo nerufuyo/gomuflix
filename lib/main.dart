@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:gomutv/gomutv.dart';
@@ -16,6 +17,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // Tv Bloc
+        BlocProvider(
+          create: (_) => di.locator<GomuTvOnAirBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvPopularBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvTopRatedBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvRecommendationBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvWatchlistBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuTvSearchBloc>(),
+        ),
+
         // Movie Provider
         ChangeNotifierProvider(
             create: (_) => di.locator<GomuflixMovieListNotifier>()),
@@ -23,14 +47,6 @@ class MyApp extends StatelessWidget {
             create: (_) => di.locator<GomuflixMovieDetailNotifier>()),
         ChangeNotifierProvider(
             create: (_) => di.locator<GomuflixMovieSearchNotifier>()),
-
-        // Tv Provider
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixTvListNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixTvDetailNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixTvSearchNotifier>()),
       ],
       child: MaterialApp(
         title: 'Gomuflix',
@@ -40,6 +56,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: blackColor,
         ),
         home: GomuflixSplashScreen(),
+        navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case GomuflixSplashScreen.routeName:

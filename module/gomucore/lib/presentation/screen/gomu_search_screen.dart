@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:gomumovie/gomumovie.dart';
@@ -40,8 +41,9 @@ class GomuflixSearchScreen extends StatelessWidget {
                 prefixIcon: Icon(Icons.search_rounded),
               ),
               onChanged: (query) {
-                Provider.of<GomuflixTvSearchNotifier>(context, listen: false)
-                    .syncSearchTv(query);
+                context.read<GomuTvSearchBloc>().add(
+                      GomuTvSearchEventSearch(query),
+                    );
                 Provider.of<GomuflixMovieSearchNotifier>(context, listen: false)
                     .syncSearchMovie(query);
               },
@@ -66,55 +68,36 @@ class GomuflixSearchScreen extends StatelessWidget {
               ],
             ),
             const ContentDivider(),
-            Consumer<GomuflixTvSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.stateVar == RequestState.loading) {
-                  return const Center(
+            BlocBuilder<GomuTvSearchBloc, GomuTvSearchState>(
+              builder: (context, state) {
+                if (state is GomuTvSearchLoading) {
+                  return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.stateVar == RequestState.loaded) {
+                } else if (state is GomuTvSearchLoaded) {
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         return GomuflixTvContentCardWidget(
-                            data.searchResult[index]);
+                            state.results[index]);
                       },
-                      itemCount: data.searchResult.length,
+                      itemCount: state.results.length,
                     ),
                   );
-                } else {
-                  return Expanded(
-                    child: Container(),
+                } else if (state is GomuTvSearchInitial) {
+                  return Center(
+                    child: Text(state.message),
                   );
-                }
-              },
-            ),
-            Consumer<GomuflixMovieSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (data.state == RequestState.loaded) {
-                  final result = data.searchResult;
-                  return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return GomuflixMovieContentCardWidget(
-                            data.searchResult[index]);
-                      },
-                      itemCount: result.length,
-                    ),
+                } else if (state is GomuTvSearchError) {
+                  return Center(
+                    child: Text(state.message),
                   );
                 } else {
-                  return Expanded(
-                    child: Container(),
-                  );
+                  return Container();
                 }
               },
-            ),
+            )
           ],
         ),
       ),

@@ -14,6 +14,15 @@ class GetGomuflixTvWatchlistCase {
   Future<Either<FailureCondition, List<GomuflixTvEntity>>> watchlistAction() {
     return data.getGomuflixTvWatchlistAct();
   }
+}
+
+// Get Watchlist Status Case
+class GetGomuflixTvWatchlistStatusCase {
+  // Declarate Variable
+  GomuflixTvRepository data;
+
+  // Callback Variable
+  GetGomuflixTvWatchlistStatusCase(this.data);
 
   // Get Watchlist Status Future
   Future<bool> watchlistStatusAction(int id) async {
@@ -21,6 +30,7 @@ class GetGomuflixTvWatchlistCase {
   }
 }
 
+// Save Watchlist Case
 class RemoveGomuflixTvWatchlistCase {
   // Declarate Variable
   GomuflixTvRepository data;
@@ -35,6 +45,7 @@ class RemoveGomuflixTvWatchlistCase {
   }
 }
 
+// Save Watchlist Case
 class SaveGomuflixTvWatchlistCase {
   // Declarate Variable
   GomuflixTvRepository data;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +16,14 @@ class _GomuflixTvMainScreenState extends State {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<GomuflixTvListNotifier>(context, listen: false)
-          ..syncGomuTvOnAir()
-          ..syncGomuTvPopular()
-          ..syncGomuTvTopRated());
+    Future.microtask(() => Provider.of<GomuTvOnAirBloc>(context, listen: false)
+        .add(GomuTvListEvent()));
+    Future.microtask(() =>
+        Provider.of<GomuTvPopularBloc>(context, listen: false)
+            .add(GomuTvListEvent()));
+    Future.microtask(() =>
+        Provider.of<GomuTvTopRatedBloc>(context, listen: false)
+            .add(GomuTvListEvent()));
   }
 
   @override
@@ -70,22 +74,21 @@ class _GomuflixTvMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixTvListNotifier>(
-                    builder: (context, data, child) {
-                      if (data.gomuTvOnAirState == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuTvOnAirBloc, GomuTvListState>(
+                    builder: (context, state) {
+                      if (state is GomuTvListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.gomuTvOnAirState == RequestState.loaded) {
-                        return GomuflixTvList(data.onAirTv);
-                      } else {
+                      } else if (state is GomuTvListLoaded) {
+                        return GomuflixTvList(state.gomuTvs);
+                      } else if (state is GomuTvListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),
@@ -124,23 +127,21 @@ class _GomuflixTvMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixTvListNotifier>(
-                    builder: (context, data, child) {
-                      if (data.gomuTvPopularState == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuTvPopularBloc, GomuTvListState>(
+                    builder: (context, state) {
+                      if (state is GomuTvListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.gomuTvPopularState ==
-                          RequestState.loaded) {
-                        return GomuflixTvList(data.popularTv);
-                      } else {
+                      } else if (state is GomuTvListLoaded) {
+                        return GomuflixTvList(state.gomuTvs);
+                      } else if (state is GomuTvListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),
@@ -179,23 +180,21 @@ class _GomuflixTvMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixTvListNotifier>(
-                    builder: (context, data, child) {
-                      if (data.gomuTvTopRatedState == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuTvTopRatedBloc, GomuTvListState>(
+                    builder: (context, state) {
+                      if (state is GomuTvListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.gomuTvTopRatedState ==
-                          RequestState.loaded) {
-                        return GomuflixTvList(data.topRatedTv);
-                      } else {
+                      } else if (state is GomuTvListLoaded) {
+                        return GomuflixTvList(state.gomuTvs);
+                      } else if (state is GomuTvListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),

@@ -1,7 +1,6 @@
-import 'package:gomucore/gomucore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class GomuflixTvDetailScreen extends StatefulWidget {
   static const routeName = '/detail-tv';
@@ -19,35 +18,73 @@ class _GomuflixTvDetailScreenState extends State<GomuflixTvDetailScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<GomuflixTvDetailNotifier>(context, listen: false)
-          .syncGomuTvDetail(widget.id);
+      context.read<GomuTvDetailBloc>().add(GomuTvDetailEvent(widget.id));
 
-      Provider.of<GomuflixTvDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      context
+          .read<GomuTvRecommendationBloc>()
+          .add(GomuTvDetailEvent(widget.id));
+
+      context
+          .read<GomuTvWatchlistBloc>()
+          .add(GomuTvWatchlistEventLoadWatchlistStatus(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    GomuTvDetailState tvRecommendations =
+        context.watch<GomuTvRecommendationBloc>().state;
+
     return Scaffold(
-      body: Consumer<GomuflixTvDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.tvState == RequestState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.tvState == RequestState.loaded) {
-            return SafeArea(
-              child: GomuflixTvDetailWidget(
-                provider.tv,
-                provider.tvRecommendations,
-                provider.isAddedToWatchlist,
+      body: BlocListener<GomuTvWatchlistBloc, GomuTvWatchlistState>(
+        listener: (_, state) {
+          if (state is GomuTvSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
               ),
             );
-          } else {
-            return Text(provider.message);
+            context
+                .read<GomuTvWatchlistBloc>()
+                .add(GomuTvWatchlistEventLoadWatchlistStatus(widget.id));
           }
         },
+        child: BlocBuilder<GomuTvDetailBloc, GomuTvDetailState>(
+          builder: (_, state) {
+            if (state is GomuTvDetailLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is GomuTvDetailError) {
+              return Center(
+                child: Text(state.errorMessage),
+              );
+            }
+
+            if (state is GomuTvDetailLoaded) {
+              bool isAddedToWatchlistTv = (context
+                      .watch<GomuTvWatchlistBloc>()
+                      .state is GomuTvStatusLoaded)
+                  ? (context.read<GomuTvWatchlistBloc>().state
+                          as GomuTvStatusLoaded)
+                      .isWatchlist
+                  : false;
+
+              return SafeArea(
+                  child: GomuflixTvDetailWidget(
+                state.gomuTvDetail,
+                tvRecommendations is GomuTvRecommendationLoaded
+                    ? tvRecommendations.gomuTvs
+                    : List.empty(),
+                isAddedToWatchlistTv,
+              ));
+            }
+
+            return Container();
+          },
+        ),
       ),
     );
   }

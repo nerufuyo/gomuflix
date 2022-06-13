@@ -91,6 +91,8 @@ final testTvSeriesDetail = GomuflixTvDetailEntity(
   voteCount: 1,
 );
 
+final testWatchlistTvSeriesList = [testWatchlistTvSeries];
+
 final testWatchlistTvSeries = GomuflixTvEntity.watchlist(
   id: 1,
   name: 'name',

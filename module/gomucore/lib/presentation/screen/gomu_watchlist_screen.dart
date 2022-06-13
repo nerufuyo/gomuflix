@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:gomutv/gomutv.dart';
@@ -9,20 +10,31 @@ class GomuflixWatchlistScreen extends StatefulWidget {
   static const routeName = '/gomuflix-watchlist-screen';
 
   @override
-  _GomuflixWatchlistScreenState createState() =>
-      _GomuflixWatchlistScreenState();
+  GomuflixWatchlistScreenState createState() => GomuflixWatchlistScreenState();
 }
 
-class _GomuflixWatchlistScreenState extends State {
+class GomuflixWatchlistScreenState extends State with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<GomuflixTvListNotifier>(context, listen: false)
-            .syncGomuTvWatchlist());
+    Future.microtask(() {
+      context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
+    });
+
     Future.microtask(() =>
         Provider.of<GomuflixMovieListNotifier>(context, listen: false)
             .syncGomuMovieWatchlist());
+  }
+
+  @override
+  void didPopNext() {
+    context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override
@@ -96,29 +108,18 @@ class _GomuflixWatchlistScreenState extends State {
               const TitleGreyLine()
             ],
           ),
-          Consumer<GomuflixTvListNotifier>(
-            builder: (context, data, child) {
-              final watchlistState = data.state;
-              if (watchlistState == RequestState.loading) {
+          BlocBuilder<GomuTvWatchlistBloc, GomuTvWatchlistState>(
+            builder: (context, state) {
+              if (state is GomuTvWatchlistLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (data.state == RequestState.loaded) {
-                return GomuflixTvList(data.watchlistTv);
-              } else if (data.state == RequestState.empty) {
-                return Center(
-                  child: Text(
-                    'Your Watchlist is Empty',
-                    style: subNameText,
-                  ),
-                );
+              } else if (state is GomuTvWatchlistLoaded) {
+                return GomuflixTvList(state.gomuTvList);
               } else {
-                return Center(
-                  key: const Key('error_message'),
-                  child: Text(
-                    data.message,
-                    style: subNameText,
-                  ),
+                return const Center(
+                  key: Key('error_message'),
+                  child: Text('Something went wrong'),
                 );
               }
             },
@@ -126,5 +127,11 @@ class _GomuflixWatchlistScreenState extends State {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    routeObserver.unsubscribe(this);
   }
 }

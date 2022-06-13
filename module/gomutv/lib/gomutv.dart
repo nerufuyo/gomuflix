@@ -12,10 +12,11 @@ export 'package:gomutv/domain/usecase/search_gomu_tv_case.dart';
 // Domain Repositories
 export 'package:gomutv/domain/repositories/gomu_tv_repository.dart';
 
-// Provider
-export 'package:gomutv/presentation/provider/gomu_tv_detail_notifier.dart';
-export 'package:gomutv/presentation/provider/gomu_tv_list_notifier.dart';
-export 'package:gomutv/presentation/provider/gomu_tv_search_notifier.dart';
+// Bloc
+export 'package:gomutv/presentation/bloc/gomu_tv_detail_bloc/gomu_tv_detail_bloc.dart';
+export 'package:gomutv/presentation/bloc/gomu_tv_list_bloc/gomu_tv_list_bloc.dart';
+export 'package:gomutv/presentation/bloc/gomu_tv_watchlist_bloc/gomu_tv_watchlist_bloc.dart';
+export 'package:gomutv/presentation/bloc/gomu_tv_search_bloc/gomu_tv_search_bloc.dart';
 
 // Screen
 export 'package:gomutv/presentation/screen/gomu_tv_main_screen.dart';

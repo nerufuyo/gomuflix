@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomutv/gomutv.dart';
-import 'package:provider/provider.dart';
 
 class GomuflixTvDetailWidget extends StatelessWidget {
   final GomuflixTvDetailEntity tv;
@@ -58,39 +58,14 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<GomuflixTvDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .syncGomuTvAddWatchlist(tv);
+                                  BlocProvider.of<GomuTvWatchlistBloc>(context)
+                                      .add(GomuTvWatchlistEventAddToWatchlist(
+                                          tv));
                                 } else {
-                                  await Provider.of<GomuflixTvDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .syncGomuTvRemoveWatchlist(tv);
-                                }
-
-                                final message =
-                                    Provider.of<GomuflixTvDetailNotifier>(
-                                            context,
-                                            listen: false)
-                                        .watchlistMessage;
-
-                                if (message ==
-                                        GomuflixTvDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        GomuflixTvDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
+                                  BlocProvider.of<GomuTvWatchlistBloc>(context)
+                                      .add(
+                                          GomuTvWatchlistEventRemoveFromWatchlist(
+                                              tv));
                                 }
                               },
                               child: Row(
@@ -148,18 +123,24 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                               'Recommendations',
                               style: subTitleText,
                             ),
-                            Consumer<GomuflixTvDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.loading) {
+                            BlocBuilder<GomuTvRecommendationBloc,
+                                GomuTvDetailState>(
+                              builder: (context, state) {
+                                if (state is GomuTvDetailLoading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
-                                    RequestState.error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.loaded) {
+                                } else if (state
+                                    is GomuTvRecommendationLoaded) {
+                                  if (state.gomuTvs.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        'No related recommendations',
+                                        style: subNameText,
+                                      ),
+                                    );
+                                  }
+
                                   return Container(
                                     height: 240,
                                     child: ListView.builder(
@@ -227,8 +208,16 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                                       itemCount: recommendations.length,
                                     ),
                                   );
+                                }
+                                if (state is GomuTvDetailError) {
+                                  return Center(
+                                    key: const Key('error_message'),
+                                    child: Text(state.errorMessage),
+                                  );
                                 } else {
-                                  return Container();
+                                  return const Center(
+                                    child: Text('Default Return'),
+                                  );
                                 }
                               },
                             ),
