@@ -43,6 +43,8 @@ void init() {
   locator.registerFactory(
       () => GomuMovieWatchlistBloc(locator(), locator(), locator(), locator()));
 
+  locator.registerFactory(() => GomuMovieSearchBloc(locator()));
+
   // use case
   locator.registerLazySingleton(() => GetGomuflixMovieListCase(locator()));
   locator.registerLazySingleton(() => GetGomuflixMovieDetailCase(locator()));

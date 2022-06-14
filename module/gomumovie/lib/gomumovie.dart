@@ -19,6 +19,7 @@ export 'package:gomumovie/domain/repositories/gomu_movie_repository.dart';
 export 'package:gomumovie/presentation/bloc/gomu_movie_list_bloc/gomu_movie_list_bloc.dart';
 export 'package:gomumovie/presentation/bloc/gomu_movie_detail_bloc/gomu_movie_detail_bloc.dart';
 export 'package:gomumovie/presentation/bloc/gomu_movie_watchlist_bloc/gomu_movie_watchlist_bloc.dart';
+export 'package:gomumovie/presentation/bloc/gomu_movie_search_bloc/gomu_movie_search_bloc.dart';
 
 // Screen
 export 'package:gomumovie/presentation/screen/gomu_movie_detail_screen.dart';

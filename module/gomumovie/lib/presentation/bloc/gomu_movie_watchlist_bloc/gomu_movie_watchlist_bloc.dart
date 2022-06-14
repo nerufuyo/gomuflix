@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gomumovie/domain/entities/gomu_movie_entity.dart';
 import 'package:gomumovie/domain/usecases/get_gomu_movie_watchlist.dart';
-import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart';
 import 'package:meta/meta.dart';
 
 part 'gomu_movie_watchlist_event.dart';

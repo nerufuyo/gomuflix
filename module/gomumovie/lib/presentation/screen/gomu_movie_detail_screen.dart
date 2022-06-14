@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gomucore/gomucore.dart';
 import 'package:flutter/material.dart';
 import 'package:gomumovie/gomumovie.dart';
-import 'package:provider/provider.dart';
 
 class GomuflixMovieDetailScreen extends StatefulWidget {
   static const routeName = '/detail-movie';

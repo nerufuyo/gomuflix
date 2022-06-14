@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:gomutv/gomutv.dart';
-import 'package:provider/provider.dart';
 
 class GomuflixWatchlistScreen extends StatefulWidget {
   const GomuflixWatchlistScreen({Key? key}) : super(key: key);

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
-import 'package:provider/provider.dart';
 
 class GomuflixMovieDetailWidget extends StatelessWidget {
   final GomuflixMovieDetailEntity movie;
@@ -129,7 +128,8 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                                     );
                                   }
                                   return Container(
-                                    height: 240,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
@@ -177,6 +177,7 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                                                   style: nameText,
                                                   overflow:
                                                       TextOverflow.ellipsis,
+                                                  maxLines: 1,
                                                 ),
                                                 Text(
                                                   recommendations[index]

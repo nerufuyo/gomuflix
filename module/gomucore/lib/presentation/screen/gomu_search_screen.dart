@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
-import 'package:gomutv/gomutv.dart';
 import 'package:gomumovie/gomumovie.dart';
-import 'package:provider/provider.dart';
+import 'package:gomutv/gomutv.dart';
 
 class GomuflixSearchScreen extends StatelessWidget {
   static const routeName = '/gomuflix-search-screen';
@@ -44,6 +43,9 @@ class GomuflixSearchScreen extends StatelessWidget {
                 context.read<GomuTvSearchBloc>().add(
                       GomuTvSearchEventSearch(query),
                     );
+                context.read<GomuMovieSearchBloc>().add(
+                      GomuMovieSearchEventSearch(query),
+                    );
               },
             ),
             const ContentDivider(),
@@ -54,7 +56,7 @@ class GomuflixSearchScreen extends StatelessWidget {
                     const TitleRedLine(),
                     const TitleDivider(),
                     Text(
-                      'Result: ',
+                      'Tv Result: ',
                       style: subTitleText,
                     ),
                     Text(
@@ -73,14 +75,17 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is GomuTvSearchLoaded) {
-                  return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return GomuflixTvContentCardWidget(
-                            state.results[index]);
-                      },
-                      itemCount: state.results.length,
+                  return Container(
+                    height: MediaQuery.of(context).size.height * 0.36,
+                    child: Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          return GomuflixTvContentCardWidget(
+                              state.results[index]);
+                        },
+                        itemCount: state.results.length,
+                      ),
                     ),
                   );
                 } else if (state is GomuTvSearchInitial) {
@@ -88,6 +93,57 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: Text(state.message),
                   );
                 } else if (state is GomuTvSearchError) {
+                  return Center(
+                    child: Text(state.message),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    const TitleRedLine(),
+                    const TitleDivider(),
+                    Text(
+                      'Movie Result: ',
+                      style: subTitleText,
+                    ),
+                    Text(
+                      textController.text,
+                      style: subTitleText,
+                    )
+                  ],
+                ),
+              ],
+            ),
+            BlocBuilder<GomuMovieSearchBloc, GomuMovieSearchState>(
+              builder: (context, state) {
+                if (state is GomuMovieSearchLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is GomuMovieSearchLoaded) {
+                  return Container(
+                    height: MediaQuery.of(context).size.height * 0.36,
+                    child: Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          return GomuflixMovieContentCardWidget(
+                              state.results[index]);
+                        },
+                        itemCount: state.results.length,
+                      ),
+                    ),
+                  );
+                } else if (state is GomuMovieSearchInitial) {
+                  return Center(
+                    child: Text(state.message),
+                  );
+                } else if (state is GomuMovieSearchError) {
                   return Center(
                     child: Text(state.message),
                   );

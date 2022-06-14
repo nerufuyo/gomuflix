@@ -1,7 +1,7 @@
 part of 'gomu_tv_search_bloc.dart';
 
 @immutable
-abstract class GomuTvSearchState {
+abstract class GomuTvSearchState extends Equatable {
   GomuTvSearchState();
 
   @override

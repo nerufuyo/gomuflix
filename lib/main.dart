@@ -59,6 +59,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<GomuMovieWatchlistBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieSearchBloc>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Gomuflix',

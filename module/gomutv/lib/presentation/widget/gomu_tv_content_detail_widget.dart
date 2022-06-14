@@ -142,7 +142,8 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                                   }
 
                                   return Container(
-                                    height: 240,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
@@ -190,6 +191,7 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                                                   style: nameText,
                                                   overflow:
                                                       TextOverflow.ellipsis,
+                                                  maxLines: 1,
                                                 ),
                                                 Text(
                                                   recommendations[index]
