@@ -39,4 +39,5 @@ void main() {
   //   when(() => mockGomuTvDetailBloc.state)
   //       .thenReturn(GomuTvDetailState.initial());
   // });
+  //
 }
