@@ -130,7 +130,7 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
-  testWidgets('Page should display ListView when data is loaded',
+  testWidgets('Page should display ListView when data is loadeds',
       (WidgetTester tester) async {
     when(() => mockGomuTvPopularBloc.state)
         .thenReturn(GomuTvListLoaded([testTvSeries]));
