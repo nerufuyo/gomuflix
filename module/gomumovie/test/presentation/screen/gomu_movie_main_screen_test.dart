@@ -1,177 +1,235 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'gomu_movie_main_screen_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([GomuflixMovieListNotifier])
+class MockGomuMovieNowPlayingBloc
+    extends MockBloc<GomuMovieListEvent, GomuMovieListState>
+    implements GomuMovieNowPlayingBloc {}
+
+class MockGomuMoviePopularBloc
+    extends MockBloc<GomuMovieListEvent, GomuMovieListState>
+    implements GomuMoviePopularBloc {}
+
+class MockGomuMovieTopRatedBloc
+    extends MockBloc<GomuMovieListEvent, GomuMovieListState>
+    implements GomuMovieTopRatedBloc {}
+
+class GomuMovieListEventFake extends Fake implements GomuMovieListEvent {}
+
+class GomuMovieListStateFake extends Fake implements GomuMovieListState {}
+
 void main() {
-  late MockGomuflixMovieListNotifier mockMovieListNotifier;
+  // Declarate Variables
+  late MockGomuMovieNowPlayingBloc mockGomuMovieNowPlayingBloc;
+
+  late MockGomuMoviePopularBloc mockGomuMoviePopularBloc;
+
+  late MockGomuMovieTopRatedBloc mockGomuMovieTopRatedBloc;
 
   setUp(() {
-    mockMovieListNotifier = MockGomuflixMovieListNotifier();
+    mockGomuMovieNowPlayingBloc = MockGomuMovieNowPlayingBloc();
+
+    mockGomuMoviePopularBloc = MockGomuMoviePopularBloc();
+
+    mockGomuMovieTopRatedBloc = MockGomuMovieTopRatedBloc();
   });
 
-  // Find Widget
-  Widget _makeTestWidget(Widget body) {
-    return ChangeNotifierProvider<GomuflixMovieListNotifier>.value(
-      value: mockMovieListNotifier,
-      child: MaterialApp(
-        home: body,
-      ),
-    );
-  }
+  setUpAll(() {
+    registerFallbackValue(GomuMovieListStateFake);
+
+    registerFallbackValue(GomuMovieListEventFake());
+  });
 
   // Main Screen
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.gomuMovieNowPlayingState)
-        .thenReturn(RequestState.loading);
+    when(() => mockGomuMovieNowPlayingBloc.state)
+        .thenReturn(GomuMovieListLoading());
 
-    when(mockMovieListNotifier.gomuMoviePopularState)
-        .thenReturn(RequestState.loading);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListLoading());
 
-    when(mockMovieListNotifier.gomuMovieTopRatedState)
-        .thenReturn(RequestState.loading);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListLoading());
 
-    await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider<GomuflixMovieListNotifier>.value(
-            value: mockMovieListNotifier,
-          ),
-        ],
-        child: MaterialApp(
-          home: GomuflixMovieMainScreen(),
-        )));
+    await tester.pumpWidget(MultiBlocProvider(
+      providers: [
+        BlocProvider<GomuMovieNowPlayingBloc>.value(
+            value: mockGomuMovieNowPlayingBloc),
+        BlocProvider<GomuMoviePopularBloc>.value(
+            value: mockGomuMoviePopularBloc),
+        BlocProvider<GomuMovieTopRatedBloc>.value(
+            value: mockGomuMovieTopRatedBloc)
+      ],
+      child: MaterialApp(
+        home: GomuflixMovieMainScreen(),
+      ),
+    ));
 
     expect(find.byType(CircularProgressIndicator), findsNWidgets(3));
   });
 
-  testWidgets('Page should display center progress bar when loading',
+  testWidgets('Page should display center progress bar when loaded',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.gomuMovieNowPlayingState)
-        .thenReturn(RequestState.loaded);
+    when(() => mockGomuMovieNowPlayingBloc.state)
+        .thenReturn(GomuMovieListLoaded([testMovie]));
 
-    when(mockMovieListNotifier.gomuMoviePopularState)
-        .thenReturn(RequestState.loaded);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListLoaded([testMovie]));
 
-    when(mockMovieListNotifier.gomuMovieTopRatedState)
-        .thenReturn(RequestState.loaded);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListLoaded([testMovie]));
 
-    when(mockMovieListNotifier.nowPlayingMovies)
-        .thenReturn(<GomuflixMovieEntity>[]);
-
-    when(mockMovieListNotifier.popularMovies)
-        .thenReturn(<GomuflixMovieEntity>[]);
-
-    when(mockMovieListNotifier.topRatedMovies)
-        .thenReturn(<GomuflixMovieEntity>[]);
-
-    await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider<GomuflixMovieListNotifier>.value(
-            value: mockMovieListNotifier,
-          ),
-        ],
-        child: MaterialApp(
-          home: GomuflixMovieMainScreen(),
-        )));
+    await tester.pumpWidget(MultiBlocProvider(
+      providers: [
+        BlocProvider<GomuMovieNowPlayingBloc>.value(
+            value: mockGomuMovieNowPlayingBloc),
+        BlocProvider<GomuMoviePopularBloc>.value(
+            value: mockGomuMoviePopularBloc),
+        BlocProvider<GomuMovieTopRatedBloc>.value(
+            value: mockGomuMovieTopRatedBloc)
+      ],
+      child: MaterialApp(
+        home: GomuflixMovieMainScreen(),
+      ),
+    ));
 
     expect(find.byType(ListView), findsNWidgets(3));
   });
 
-  testWidgets('Page should display center progress bar when loading',
+  testWidgets('Page should display center progress bar when error',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.gomuMovieNowPlayingState)
-        .thenReturn(RequestState.error);
+    when(() => mockGomuMovieNowPlayingBloc.state)
+        .thenReturn(GomuMovieListError('Error'));
 
-    when(mockMovieListNotifier.gomuMoviePopularState)
-        .thenReturn(RequestState.error);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListError('Error'));
 
-    when(mockMovieListNotifier.gomuMovieTopRatedState)
-        .thenReturn(RequestState.error);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListError('Error'));
 
-    when(mockMovieListNotifier.message).thenReturn('Error message');
-
-    await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider<GomuflixMovieListNotifier>.value(
-            value: mockMovieListNotifier,
-          ),
-        ],
-        child: MaterialApp(
-          home: GomuflixMovieMainScreen(),
-        )));
+    await tester.pumpWidget(MultiBlocProvider(
+      providers: [
+        BlocProvider<GomuMovieNowPlayingBloc>.value(
+            value: mockGomuMovieNowPlayingBloc),
+        BlocProvider<GomuMoviePopularBloc>.value(
+            value: mockGomuMoviePopularBloc),
+        BlocProvider<GomuMovieTopRatedBloc>.value(
+            value: mockGomuMovieTopRatedBloc)
+      ],
+      child: MaterialApp(
+        home: GomuflixMovieMainScreen(),
+      ),
+    ));
 
     expect(find.byKey(Key('error_message')), findsNWidgets(3));
   });
 
-  // Popular Movie Test
+  // Movie Popular
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.loading);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListLoading());
 
-    await tester.pumpWidget(_makeTestWidget(GomuflixMoviePopularScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMoviePopularBloc>.value(
+        value: mockGomuMoviePopularBloc,
+        child: MaterialApp(
+          home: GomuflixMoviePopularScreen(),
+        ),
+      ),
+    );
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.loaded);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListLoaded([testMovie]));
 
-    when(mockMovieListNotifier.popularMovies)
-        .thenReturn(<GomuflixMovieEntity>[]);
-
-    await tester.pumpWidget(_makeTestWidget(GomuflixMoviePopularScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMoviePopularBloc>.value(
+        value: mockGomuMoviePopularBloc,
+        child: MaterialApp(
+          home: GomuflixMoviePopularScreen(),
+        ),
+      ),
+    );
 
     expect(find.byType(ListView), findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.error);
+    when(() => mockGomuMoviePopularBloc.state)
+        .thenReturn(GomuMovieListError('Error'));
 
-    when(mockMovieListNotifier.message).thenReturn('Error message');
-
-    await tester.pumpWidget(_makeTestWidget(GomuflixMoviePopularScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMoviePopularBloc>.value(
+        value: mockGomuMoviePopularBloc,
+        child: MaterialApp(
+          home: GomuflixMoviePopularScreen(),
+        ),
+      ),
+    );
 
     expect(find.byKey(Key('error_message')), findsOneWidget);
   });
 
-  // Top Rated Movie Test
-  testWidgets('Page should display progress bar when loading',
+  // Movie Top Rated
+  testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.loading);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListLoading());
 
-    await tester.pumpWidget(_makeTestWidget(GomuflixMovieTopRatedScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMovieTopRatedBloc>.value(
+        value: mockGomuMovieTopRatedBloc,
+        child: MaterialApp(
+          home: GomuflixMovieTopRatedScreen(),
+        ),
+      ),
+    );
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
-  testWidgets('Page should display when data is loaded',
+  testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.loaded);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListLoaded([testMovie]));
 
-    when(mockMovieListNotifier.topRatedMovies)
-        .thenReturn(<GomuflixMovieEntity>[]);
-
-    await tester.pumpWidget(_makeTestWidget(GomuflixMovieTopRatedScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMovieTopRatedBloc>.value(
+        value: mockGomuMovieTopRatedBloc,
+        child: MaterialApp(
+          home: GomuflixMovieTopRatedScreen(),
+        ),
+      ),
+    );
 
     expect(find.byType(ListView), findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockMovieListNotifier.state).thenReturn(RequestState.error);
+    when(() => mockGomuMovieTopRatedBloc.state)
+        .thenReturn(GomuMovieListError('Error'));
 
-    when(mockMovieListNotifier.message).thenReturn('Error message');
-
-    await tester.pumpWidget(_makeTestWidget(GomuflixMovieTopRatedScreen()));
+    await tester.pumpWidget(
+      BlocProvider<GomuMovieTopRatedBloc>.value(
+        value: mockGomuMovieTopRatedBloc,
+        child: MaterialApp(
+          home: GomuflixMovieTopRatedScreen(),
+        ),
+      ),
+    );
 
     expect(find.byKey(Key('error_message')), findsOneWidget);
   });

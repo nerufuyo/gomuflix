@@ -44,8 +44,6 @@ class GomuflixSearchScreen extends StatelessWidget {
                 context.read<GomuTvSearchBloc>().add(
                       GomuTvSearchEventSearch(query),
                     );
-                Provider.of<GomuflixMovieSearchNotifier>(context, listen: false)
-                    .syncSearchMovie(query);
               },
             ),
             const ContentDivider(),

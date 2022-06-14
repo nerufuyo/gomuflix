@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
@@ -60,41 +61,13 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<
-                                              GomuflixMovieDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .syncGomuMovieAddWatchlist(movie);
+                                  BlocProvider.of<GomuMovieWatchlistBloc>(
+                                          context)
+                                      .add(GomuMovieSaveEvent(movie));
                                 } else {
-                                  await Provider.of<
-                                              GomuflixMovieDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .syncGomuMovieRemoveWatchlist(movie);
-                                }
-
-                                final message =
-                                    Provider.of<GomuflixMovieDetailNotifier>(
-                                            context,
-                                            listen: false)
-                                        .watchlistMessage;
-
-                                if (message ==
-                                        GomuflixMovieDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        GomuflixMovieDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
+                                  BlocProvider.of<GomuMovieWatchlistBloc>(
+                                          context)
+                                      .add(GomuMovieRemoveEvent(movie));
                                 }
                               },
                               child: Row(
@@ -138,18 +111,23 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                               'Recommendations',
                               style: subTitleText,
                             ),
-                            Consumer<GomuflixMovieDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.loading) {
+                            BlocBuilder<GomuMovieRecommendationBloc,
+                                GomuMovieDetailState>(
+                              builder: (context, state) {
+                                if (state is GomuMovieDetailLoading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
-                                    RequestState.error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.loaded) {
+                                } else if (state
+                                    is GomuMovieRecommendationLoaded) {
+                                  if (state.gomuMovieRecommendation.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        'No related recommendations',
+                                        style: subNameText,
+                                      ),
+                                    );
+                                  }
                                   return Container(
                                     height: 240,
                                     child: ListView.builder(
@@ -197,6 +175,8 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                                                       .title
                                                       .toString(),
                                                   style: nameText,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                                 Text(
                                                   recommendations[index]
@@ -217,8 +197,16 @@ class GomuflixMovieDetailWidget extends StatelessWidget {
                                       itemCount: recommendations.length,
                                     ),
                                   );
+                                }
+                                if (state is GomuMovieDetailError) {
+                                  return Center(
+                                    key: const Key('error_message'),
+                                    child: Text(state.errorMessage),
+                                  );
                                 } else {
-                                  return Container();
+                                  return const Center(
+                                    child: Text('Default Return'),
+                                  );
                                 }
                               },
                             ),

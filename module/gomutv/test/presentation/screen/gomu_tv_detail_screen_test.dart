@@ -1,6 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gomutv/gomutv.dart';
 import 'package:mocktail/mocktail.dart';
@@ -35,21 +33,10 @@ void main() {
     mockGomuTvRecommendationBloc = MockGomuTvRecommendationBloc();
   });
 
-  // testWidgets('Detail Tv Page should display Progressbar when loading',
-  //     (WidgetTester tester) async {
-  //   when(() => mockGomuTvDetailBloc.state).thenReturn(GomuTvDetailLoading());
-
-  //   await tester.pumpWidget(MultiBlocProvider(
-  //     providers: [
-  //       BlocProvider<GomuTvDetailBloc>.value(value: mockGomuTvDetailBloc),
-  //     ],
-  //     child: MaterialApp(
-  //       home: GomuflixTvDetailScreen(
-  //         id: 1,
-  //       ),
-  //     ),
-  //   ));
-
-  //   expect(find.byType(CircularProgressIndicator), findsOneWidget);
-  // });
+  testWidgets('Detail Tv Screen should display progressbar when loading',
+      (WidgetTester tester) async {
+    // Condition
+    when(() => mockGomuTvDetailBloc.state)
+        .thenReturn(GomuTvDetailState.initial());
+  });
 }

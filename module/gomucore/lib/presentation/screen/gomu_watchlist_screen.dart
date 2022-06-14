@@ -21,14 +21,15 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
       context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
     });
 
-    Future.microtask(() =>
-        Provider.of<GomuflixMovieListNotifier>(context, listen: false)
-            .syncGomuMovieWatchlist());
+    Future.microtask(() {
+      context.read<GomuMovieWatchlistBloc>().add(GomuMovieGetListEvent());
+    });
   }
 
   @override
   void didPopNext() {
     context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
+    context.read<GomuMovieWatchlistBloc>().add(GomuMovieGetListEvent());
   }
 
   @override
@@ -70,29 +71,18 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
               const TitleGreyLine()
             ],
           ),
-          Consumer<GomuflixMovieListNotifier>(
-            builder: (context, data, child) {
-              final watchlistState = data.state;
-              if (watchlistState == RequestState.loading) {
+          BlocBuilder<GomuMovieWatchlistBloc, GomuMovieWatchlistState>(
+            builder: (context, state) {
+              if (state is GomuMovieWatchlistLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (data.state == RequestState.loaded) {
-                return GomuflixMovieList(data.watchlistMovies);
-              } else if (data.state == RequestState.empty) {
-                return Center(
-                  child: Text(
-                    'Your Watchlist is Empty',
-                    style: subNameText,
-                  ),
-                );
+              } else if (state is GomuMovieWatchlistLoaded) {
+                return GomuflixMovieList(state.gomuMovieList);
               } else {
-                return Center(
-                  key: const Key('error_message'),
-                  child: Text(
-                    data.message,
-                    style: subNameText,
-                  ),
+                return const Center(
+                  key: Key('error_message'),
+                  child: Text('Something went wrong'),
                 );
               }
             },

@@ -40,13 +40,25 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<GomuTvSearchBloc>(),
         ),
 
-        // Movie Provider
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixMovieListNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixMovieDetailNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<GomuflixMovieSearchNotifier>()),
+        // Movie Bloc
+        BlocProvider(
+          create: (_) => di.locator<GomuMoviePopularBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieTopRatedBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieNowPlayingBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieRecommendationBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GomuMovieWatchlistBloc>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Gomuflix',

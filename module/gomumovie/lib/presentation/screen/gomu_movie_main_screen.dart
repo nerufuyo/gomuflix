@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,15 @@ class _GomuflixMovieMainScreenState extends State {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<GomuflixMovieListNotifier>(context, listen: false)
-          ..syncGomuMovieNowPlaying()
-          ..syncGomuMoviePopular()
-          ..syncGomuMovieTopRated());
+    Future.microtask(() =>
+        Provider.of<GomuMovieNowPlayingBloc>(context, listen: false)
+            .add(GomuMovieListEvent()));
+    Future.microtask(() =>
+        Provider.of<GomuMoviePopularBloc>(context, listen: false)
+            .add(GomuMovieListEvent()));
+    Future.microtask(() =>
+        Provider.of<GomuMovieTopRatedBloc>(context, listen: false)
+            .add(GomuMovieListEvent()));
   }
 
   @override
@@ -72,23 +77,21 @@ class _GomuflixMovieMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixMovieListNotifier>(
-                    builder: (context, data, child) {
-                      final state = data.gomuMovieNowPlayingState;
-                      if (state == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuMovieNowPlayingBloc, GomuMovieListState>(
+                    builder: (context, state) {
+                      if (state is GomuMovieListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
-                        return GomuflixMovieList(data.nowPlayingMovies);
-                      } else {
+                      } else if (state is GomuMovieListLoaded) {
+                        return GomuflixMovieList(state.gomuMovies);
+                      } else if (state is GomuMovieListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),
@@ -127,23 +130,21 @@ class _GomuflixMovieMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixMovieListNotifier>(
-                    builder: (context, data, child) {
-                      final state = data.gomuMoviePopularState;
-                      if (state == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuMoviePopularBloc, GomuMovieListState>(
+                    builder: (context, state) {
+                      if (state is GomuMovieListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
-                        return GomuflixMovieList(data.popularMovies);
-                      } else {
+                      } else if (state is GomuMovieListLoaded) {
+                        return GomuflixMovieList(state.gomuMovies);
+                      } else if (state is GomuMovieListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),
@@ -182,23 +183,21 @@ class _GomuflixMovieMainScreenState extends State {
                     ],
                   ),
                   const ContentDivider(),
-                  Consumer<GomuflixMovieListNotifier>(
-                    builder: (context, data, child) {
-                      final state = data.gomuMovieTopRatedState;
-                      if (state == RequestState.loading) {
-                        return const Center(
+                  BlocBuilder<GomuMovieTopRatedBloc, GomuMovieListState>(
+                    builder: (context, state) {
+                      if (state is GomuMovieListLoading) {
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state == RequestState.loaded) {
-                        return GomuflixMovieList(data.topRatedMovies);
-                      } else {
+                      } else if (state is GomuMovieListLoaded) {
+                        return GomuflixMovieList(state.gomuMovies);
+                      } else if (state is GomuMovieListError) {
                         return Center(
                           key: const Key('error_message'),
-                          child: Text(
-                            data.message,
-                            style: subNameText,
-                          ),
+                          child: Text(state.errorMessage),
                         );
+                      } else {
+                        return Container();
                       }
                     },
                   ),

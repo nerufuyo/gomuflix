@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,8 @@ class _GomuflixMoviePopularScreenState
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<GomuflixMovieListNotifier>(context, listen: false)
-            .syncGomuMoviePopular());
+        Provider.of<GomuMoviePopularBloc>(context, listen: false)
+            .add(GomuMovieListEvent()));
   }
 
   @override
@@ -45,28 +46,27 @@ class _GomuflixMoviePopularScreenState
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<GomuflixMovieListNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<GomuMoviePopularBloc, GomuMovieListState>(
+          builder: (context, state) {
+            if (state is GomuMovieListLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is GomuMovieListLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   return GomuflixMovieContentCardWidget(
-                      data.popularMovies[index]);
+                      state.gomuMovies[index]);
                 },
-                itemCount: data.popularMovies.length,
+                itemCount: state.gomuMovies.length,
               );
-            } else {
+            } else if (state is GomuMovieListError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(
-                  data.message,
-                  style: subNameText,
-                ),
+                child: Text(state.errorMessage),
               );
+            } else {
+              return Container();
             }
           },
         ),

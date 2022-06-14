@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void init() {
-  // Bloc
+  // Tv Bloc
   locator.registerFactory(() => GomuTvOnAirBloc(locator()));
 
   locator.registerFactory(() => GomuTvPopularBloc(locator()));
@@ -29,36 +29,28 @@ void init() {
 
   locator.registerFactory(() => GomuTvSearchBloc(locator()));
 
-  // provider
-  locator.registerFactory(
-    () => GomuflixMovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-      getWatchlistMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => GomuflixMovieDetailNotifier(
-      getGomuMovieDetail: locator(),
-      getGomuMovieRecommendation: locator(),
-      getGomuMovieWatchlistStatus: locator(),
-      saveGomuMovieWatchlist: locator(),
-      removeGomuMovieWatchlist: locator(),
-    ),
-  );
+  // Movie Bloc
+  locator.registerFactory(() => GomuMoviePopularBloc(locator()));
+
+  locator.registerFactory(() => GomuMovieTopRatedBloc(locator()));
+
+  locator.registerFactory(() => GomuMovieNowPlayingBloc(locator()));
+
+  locator.registerFactory(() => GomuMovieDetailBloc(locator()));
+
+  locator.registerFactory(() => GomuMovieRecommendationBloc(locator()));
 
   locator.registerFactory(
-    () => GomuflixMovieSearchNotifier(
-      searchMovie: locator(),
-    ),
-  );
+      () => GomuMovieWatchlistBloc(locator(), locator(), locator(), locator()));
 
   // use case
   locator.registerLazySingleton(() => GetGomuflixMovieListCase(locator()));
   locator.registerLazySingleton(() => GetGomuflixMovieDetailCase(locator()));
   locator.registerLazySingleton(() => SearchGomuflixMovie(locator()));
   locator.registerLazySingleton(() => GetGomuflixMovieWatchlistCase(locator()));
+  locator.registerLazySingleton(
+      () => GetGomuflixMovieWatchlistStatusCase(locator()));
+
   locator.registerLazySingleton(
       () => swMovie.SaveGomuflixMoviewatchlist(locator()));
   locator.registerLazySingleton(

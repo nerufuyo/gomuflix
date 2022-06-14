@@ -15,6 +15,14 @@ class GetGomuflixMovieWatchlistCase {
       watchlistAction() {
     return data.getGomuflixMovieWatchlistAct();
   }
+}
+
+class GetGomuflixMovieWatchlistStatusCase {
+  // Declarate Variable
+  GomuflixMovieRepository data;
+
+  // Callback Variable
+  GetGomuflixMovieWatchlistStatusCase(this.data);
 
   // Get Watchlist Status Movie
   Future<bool> execute(int id) async {

@@ -15,10 +15,10 @@ export 'package:gomumovie/domain/usecases/search_gomu_movie_case.dart';
 // Domain Repositories
 export 'package:gomumovie/domain/repositories/gomu_movie_repository.dart';
 
-// Provider
-export 'package:gomumovie/presentation/provider/gomu_movie_detail_notifier.dart';
-export 'package:gomumovie/presentation/provider/gomu_movie_list_notifier.dart';
-export 'package:gomumovie/presentation/provider/gomu_movie_search_notifier.dart';
+// Bloc
+export 'package:gomumovie/presentation/bloc/gomu_movie_list_bloc/gomu_movie_list_bloc.dart';
+export 'package:gomumovie/presentation/bloc/gomu_movie_detail_bloc/gomu_movie_detail_bloc.dart';
+export 'package:gomumovie/presentation/bloc/gomu_movie_watchlist_bloc/gomu_movie_watchlist_bloc.dart';
 
 // Screen
 export 'package:gomumovie/presentation/screen/gomu_movie_detail_screen.dart';

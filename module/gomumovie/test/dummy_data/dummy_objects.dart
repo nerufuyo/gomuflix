@@ -37,6 +37,8 @@ final testMovieDetail = GomuflixMovieDetailEntity(
   voteCount: 1,
 );
 
+final testMovieDetailList = [testMovieDetail];
+
 final testWatchlistMovie = GomuflixMovieEntity.watchlist(
   id: 1,
   title: 'title',

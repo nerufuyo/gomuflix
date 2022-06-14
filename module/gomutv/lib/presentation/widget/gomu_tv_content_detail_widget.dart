@@ -188,6 +188,8 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                                                       .originalName
                                                       .toString(),
                                                   style: nameText,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                                 Text(
                                                   recommendations[index]

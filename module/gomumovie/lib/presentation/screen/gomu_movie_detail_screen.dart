@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:flutter/material.dart';
 import 'package:gomumovie/gomumovie.dart';
@@ -20,35 +21,73 @@ class _GomuflixMovieDetailScreenState extends State<GomuflixMovieDetailScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<GomuflixMovieDetailNotifier>(context, listen: false)
-          .syncGomuMovieDetail(widget.id);
+      context.read<GomuMovieDetailBloc>().add(GomuMovieDetailEvent(widget.id));
 
-      Provider.of<GomuflixMovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      context
+          .read<GomuMovieRecommendationBloc>()
+          .add(GomuMovieDetailEvent(widget.id));
+
+      context
+          .read<GomuMovieWatchlistBloc>()
+          .add(GomuMovieGetStatusEvent(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    GomuMovieDetailState movieRecommendations =
+        context.watch<GomuMovieRecommendationBloc>().state;
+
     return Scaffold(
-      body: Consumer<GomuflixMovieDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.movieState == RequestState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.movieState == RequestState.loaded) {
-            return SafeArea(
-              child: GomuflixMovieDetailWidget(
-                provider.movie,
-                provider.movieRecommendations,
-                provider.isAddedToWatchlist,
+      body: BlocListener<GomuMovieWatchlistBloc, GomuMovieWatchlistState>(
+        listener: (_, state) {
+          if (state is GomuMovieSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
               ),
             );
-          } else {
-            return Text(provider.message);
+            context
+                .read<GomuMovieWatchlistBloc>()
+                .add(GomuMovieGetStatusEvent(widget.id));
           }
         },
+        child: BlocBuilder<GomuMovieDetailBloc, GomuMovieDetailState>(
+          builder: (_, state) {
+            if (state is GomuMovieDetailLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is GomuMovieDetailError) {
+              return Center(
+                child: Text(state.errorMessage),
+              );
+            }
+
+            if (state is GomuMovieDetailLoaded) {
+              bool isAddedToWatchlistTv = (context
+                      .watch<GomuMovieWatchlistBloc>()
+                      .state is GomuMovieStatusLoaded)
+                  ? (context.read<GomuMovieWatchlistBloc>().state
+                          as GomuMovieStatusLoaded)
+                      .isWatchlist
+                  : false;
+
+              return SafeArea(
+                  child: GomuflixMovieDetailWidget(
+                state.gomuMovieDetail,
+                movieRecommendations is GomuMovieRecommendationLoaded
+                    ? movieRecommendations.gomuMovieRecommendation
+                    : List.empty(),
+                isAddedToWatchlistTv,
+              ));
+            }
+
+            return Container();
+          },
+        ),
       ),
     );
   }
