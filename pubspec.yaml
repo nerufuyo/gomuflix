@@ -1,0 +1,37 @@
+name: gomuflix
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  gomucore:
+    path: module/gomucore
+  gomumovie:
+    path: module/gomumovie
+  gomutv:
+    path: module/gomutv
+
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+  provider: ^6.0.3
+  path_provider: ^2.0.10
+  get_it: ^7.2.0
+  bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
+
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  build_runner: ^2.1.11
+  mockito: ^5.2.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/profile.png
