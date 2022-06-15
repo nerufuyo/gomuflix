@@ -3,6 +3,7 @@ library gomucore;
 // Common
 export 'package:gomucore/common/constants.dart';
 export 'package:gomucore/common/static.dart';
+export 'package:gomucore/common/ssl.dart';
 
 // Datasources
 export 'package:gomucore/data/datasources/gomu_movie_datasource_handler.dart';

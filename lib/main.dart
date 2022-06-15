@@ -7,7 +7,9 @@ import 'package:gomutv/gomutv.dart';
 import 'package:provider/provider.dart';
 import 'package:gomuflix/injection.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HttpSSLPiningHelper.init();
   di.init();
   runApp(MyApp());
 }
@@ -118,13 +120,15 @@ class MyApp extends StatelessWidget {
             case GomuflixAboutScreen.routeName:
               return MaterialPageRoute(builder: (_) => GomuflixAboutScreen());
             default:
-              return MaterialPageRoute(builder: (_) {
-                return Scaffold(
-                  body: Center(
-                    child: Text('Page not found :('),
-                  ),
-                );
-              });
+              return MaterialPageRoute(
+                builder: (_) {
+                  return Scaffold(
+                    body: Center(
+                      child: Text('Page not found :('),
+                    ),
+                  );
+                },
+              );
           }
         },
       ),
