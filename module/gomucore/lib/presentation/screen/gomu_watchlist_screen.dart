@@ -78,6 +78,11 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
                 );
               } else if (state is GomuMovieWatchlistLoaded) {
                 return GomuflixMovieList(state.gomuMovieList);
+              } else if (state is GomuMovieWatchlistError) {
+                return const Center(
+                  key: Key('error_message'),
+                  child: Text('Something went wrong'),
+                );
               } else {
                 return const Center(
                   key: Key('error_message'),
@@ -105,6 +110,11 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
                 );
               } else if (state is GomuTvWatchlistLoaded) {
                 return GomuflixTvList(state.gomuTvList);
+              } else if (state is GomuTvWatchlistError) {
+                return const Center(
+                  key: Key('error_message'),
+                  child: Text('Something went wrong'),
+                );
               } else {
                 return const Center(
                   key: Key('error_message'),

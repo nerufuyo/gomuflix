@@ -75,25 +75,24 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is GomuTvSearchLoaded) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.36,
-                    child: Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          return GomuflixTvContentCardWidget(
-                              state.results[index]);
-                        },
-                        itemCount: state.results.length,
-                      ),
+                  return Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemBuilder: (context, index) {
+                        return GomuflixTvContentCardWidget(
+                            state.results[index]);
+                      },
+                      itemCount: state.results.length,
                     ),
                   );
                 } else if (state is GomuTvSearchInitial) {
                   return Center(
+                    key: const Key('initial_message'),
                     child: Text(state.message),
                   );
                 } else if (state is GomuTvSearchError) {
                   return Center(
+                    key: const Key('error_message'),
                     child: Text(state.message),
                   );
                 } else {
@@ -126,25 +125,24 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is GomuMovieSearchLoaded) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.36,
-                    child: Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          return GomuflixMovieContentCardWidget(
-                              state.results[index]);
-                        },
-                        itemCount: state.results.length,
-                      ),
+                  return Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemBuilder: (context, index) {
+                        return GomuflixMovieContentCardWidget(
+                            state.results[index]);
+                      },
+                      itemCount: state.results.length,
                     ),
                   );
                 } else if (state is GomuMovieSearchInitial) {
                   return Center(
+                    key: const Key('initial_message'),
                     child: Text(state.message),
                   );
                 } else if (state is GomuMovieSearchError) {
                   return Center(
+                    key: const Key('error_message'),
                     child: Text(state.message),
                   );
                 } else {

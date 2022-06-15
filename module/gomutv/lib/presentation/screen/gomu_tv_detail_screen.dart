@@ -10,10 +10,10 @@ class GomuflixTvDetailScreen extends StatefulWidget {
   const GomuflixTvDetailScreen({required this.id, Key? key}) : super(key: key);
 
   @override
-  _GomuflixTvDetailScreenState createState() => _GomuflixTvDetailScreenState();
+  GomuflixTvDetailScreenState createState() => GomuflixTvDetailScreenState();
 }
 
-class _GomuflixTvDetailScreenState extends State<GomuflixTvDetailScreen> {
+class GomuflixTvDetailScreenState extends State<GomuflixTvDetailScreen> {
   @override
   void initState() {
     super.initState();

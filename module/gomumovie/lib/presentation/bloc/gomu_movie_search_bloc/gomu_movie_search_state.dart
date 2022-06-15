@@ -31,6 +31,16 @@ class GomuMovieSearchError extends GomuMovieSearchState {
   List<Object> get props => [message];
 }
 
+// Empty state
+class GomuMovieSearchEmpty extends GomuMovieSearchState {
+  final String message;
+
+  GomuMovieSearchEmpty(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
 // Loaded state
 class GomuMovieSearchLoaded extends GomuMovieSearchState {
   final List<GomuflixMovieEntity> results;

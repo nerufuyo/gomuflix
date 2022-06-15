@@ -31,6 +31,16 @@ class GomuTvSearchError extends GomuTvSearchState {
   List<Object> get props => [message];
 }
 
+// Empty state
+class GomuTvSearchEmpty extends GomuTvSearchState {
+  final String message;
+
+  GomuTvSearchEmpty(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
 // Loaded state
 class GomuTvSearchLoaded extends GomuTvSearchState {
   final List<GomuflixTvEntity> results;

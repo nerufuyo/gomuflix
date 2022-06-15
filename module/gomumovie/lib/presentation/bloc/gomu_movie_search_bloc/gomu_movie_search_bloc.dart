@@ -26,7 +26,7 @@ class GomuMovieSearchBloc
             (success) {
           emit(GomuMovieSearchLoaded(success));
           if (success.isEmpty) {
-            emit(GomuMovieSearchInitial('No Result'));
+            emit(GomuMovieSearchEmpty('No Result'));
           }
         });
       },

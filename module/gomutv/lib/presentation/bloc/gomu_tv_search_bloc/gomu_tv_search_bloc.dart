@@ -24,7 +24,7 @@ class GomuTvSearchBloc extends Bloc<GomuTvSearchEvent, GomuTvSearchState> {
             (success) {
           emit(GomuTvSearchLoaded(success));
           if (success.isEmpty) {
-            emit(GomuTvSearchInitial('No Result'));
+            emit(GomuTvSearchEmpty('No Result'));
           }
         });
       },
