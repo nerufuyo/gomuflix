@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "495910994890",
+    "project_id": "gomuflix",
+    "storage_bucket": "gomuflix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495910994890:android:1a16ec0a0092b2b11e4533",
+        "android_client_info": {
+          "package_name": "com.example.gomuflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495910994890-6cq42t051fhke33ns1gadht4q5t56mu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS6h_112jtHnhdTc0rg4x9vi6EaT8vLC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495910994890-6cq42t051fhke33ns1gadht4q5t56mu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
