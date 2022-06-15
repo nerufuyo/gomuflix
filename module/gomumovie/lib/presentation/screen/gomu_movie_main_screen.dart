@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
@@ -42,6 +43,7 @@ class _GomuflixMovieMainScreenState extends State {
         actions: [
           IconButton(
               onPressed: () {
+                // FirebaseCrashlytics.instance.crash();
                 Navigator.pushNamed(context, GomuflixSearchScreen.routeName);
               },
               icon: const Icon(Icons.search_rounded))
