@@ -6,6 +6,7 @@ import 'package:gomutv/gomutv.dart';
 
 class GomuflixWatchlistScreen extends StatefulWidget {
   const GomuflixWatchlistScreen({Key? key}) : super(key: key);
+
   static const routeName = '/gomuflix-watchlist-screen';
 
   @override
@@ -16,6 +17,7 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
     });
@@ -28,12 +30,14 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
   @override
   void didPopNext() {
     context.read<GomuTvWatchlistBloc>().add(GomuTvGetListEvent());
+
     context.read<GomuMovieWatchlistBloc>().add(GomuMovieGetListEvent());
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
@@ -84,9 +88,14 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
                   child: Text('Something went wrong'),
                 );
               } else {
-                return const Center(
-                  key: Key('error_message'),
-                  child: Text('Something went wrong'),
+                return SizedBox(
+                  height: 240,
+                  child: Center(
+                    child: Text(
+                      'Wathclist is empty',
+                      style: subNameText,
+                    ),
+                  ),
                 );
               }
             },
@@ -116,9 +125,14 @@ class GomuflixWatchlistScreenState extends State with RouteAware {
                   child: Text('Something went wrong'),
                 );
               } else {
-                return const Center(
-                  key: Key('error_message'),
-                  child: Text('Something went wrong'),
+                return SizedBox(
+                  height: 240,
+                  child: Center(
+                    child: Text(
+                      'Wathclist is empty',
+                      style: subNameText,
+                    ),
+                  ),
                 );
               }
             },

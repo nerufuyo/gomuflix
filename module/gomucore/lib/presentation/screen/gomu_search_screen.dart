@@ -56,7 +56,7 @@ class GomuflixSearchScreen extends StatelessWidget {
                     const TitleRedLine(),
                     const TitleDivider(),
                     Text(
-                      'Tv Result: ',
+                      'Result: ',
                       style: subTitleText,
                     ),
                     Text(
@@ -71,8 +71,11 @@ class GomuflixSearchScreen extends StatelessWidget {
             BlocBuilder<GomuTvSearchBloc, GomuTvSearchState>(
               builder: (context, state) {
                 if (state is GomuTvSearchLoading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    height: 150,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 } else if (state is GomuTvSearchLoaded) {
                   return Expanded(
@@ -96,33 +99,22 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: Text(state.message),
                   );
                 } else {
-                  return Container();
+                  return Container(
+                    height: 150,
+                    child: Center(child: Text('Search is empty')),
+                  );
                 }
               },
             ),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    const TitleRedLine(),
-                    const TitleDivider(),
-                    Text(
-                      'Movie Result: ',
-                      style: subTitleText,
-                    ),
-                    Text(
-                      textController.text,
-                      style: subTitleText,
-                    )
-                  ],
-                ),
-              ],
-            ),
+            SizedBox(height: 10),
             BlocBuilder<GomuMovieSearchBloc, GomuMovieSearchState>(
               builder: (context, state) {
                 if (state is GomuMovieSearchLoading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    height: 150,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 } else if (state is GomuMovieSearchLoaded) {
                   return Expanded(
@@ -146,7 +138,9 @@ class GomuflixSearchScreen extends StatelessWidget {
                     child: Text(state.message),
                   );
                 } else {
-                  return Container();
+                  return Container(
+                    height: 150,
+                  );
                 }
               },
             )

@@ -8,14 +8,17 @@ abstract class GomuMovieWatchlistState extends Equatable {
   List<Object> get props => [];
 }
 
+// Movie Watchlist State
 class GomuMovieWatchlistInitial extends GomuMovieWatchlistState {
   final String message = 'Initial';
 }
 
+// Movie Watchlist Loading
 class GomuMovieWatchlistLoading extends GomuMovieWatchlistState {
   final String message = 'Loading';
 }
 
+// Movie Watchlist Loaded
 class GomuMovieWatchlistLoaded extends GomuMovieWatchlistState {
   final List<GomuflixMovieEntity> gomuMovieList;
 
@@ -25,6 +28,7 @@ class GomuMovieWatchlistLoaded extends GomuMovieWatchlistState {
   List<Object> get props => [gomuMovieList];
 }
 
+// Movie Watchlist Error
 class GomuMovieWatchlistError extends GomuMovieWatchlistState {
   final String message;
 
@@ -34,6 +38,7 @@ class GomuMovieWatchlistError extends GomuMovieWatchlistState {
   List<Object> get props => [message];
 }
 
+// Movie Watchlist Success
 class GomuMovieSuccess extends GomuMovieWatchlistState {
   final String message;
 
@@ -43,6 +48,7 @@ class GomuMovieSuccess extends GomuMovieWatchlistState {
   List<Object> get props => [message];
 }
 
+// Movie Watchlist Status Loaded
 class GomuMovieStatusLoaded extends GomuMovieWatchlistState {
   final bool isWatchlist;
 

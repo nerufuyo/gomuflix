@@ -47,26 +47,36 @@ void init() {
 
   // use case
   locator.registerLazySingleton(() => GetGomuflixMovieListCase(locator()));
+
   locator.registerLazySingleton(() => GetGomuflixMovieDetailCase(locator()));
+
   locator.registerLazySingleton(() => SearchGomuflixMovie(locator()));
+
   locator.registerLazySingleton(() => GetGomuflixMovieWatchlistCase(locator()));
+
   locator.registerLazySingleton(
       () => GetGomuflixMovieWatchlistStatusCase(locator()));
 
   locator.registerLazySingleton(
       () => swMovie.SaveGomuflixMoviewatchlist(locator()));
+
   locator.registerLazySingleton(
       () => rwMovie.RemoveGomuflixMoviewatchlist(locator()));
 
   locator.registerLazySingleton(() => GetGomuflixTvListCase(locator()));
+
   locator.registerLazySingleton(() => GetGomuflixTvDetailCase(locator()));
+
   locator.registerLazySingleton(() => SearchGomuflixTvCase(locator()));
+
   locator.registerLazySingleton(() => GetGomuflixTvWatchlistCase(locator()));
+
   locator
       .registerLazySingleton(() => GetGomuflixTvWatchlistStatusCase(locator()));
 
   locator
       .registerLazySingleton(() => swTv.SaveGomuflixTvWatchlistCase(locator()));
+
   locator.registerLazySingleton(
       () => rwTv.RemoveGomuflixTvWatchlistCase(locator()));
 
@@ -86,6 +96,7 @@ void init() {
   locator.registerLazySingleton<GomuflixMovieRemoteDatasource>(() =>
       GomuflixMovieRemoteDataSourceImpl(
           client: locator(), databaseHelper: locator()));
+
   locator.registerLazySingleton<GomuflixTvRemoteApiDatasource>(() =>
       GomuflixTvRemoteApiDatasourceImpl(
           client: locator(), databaseHandlerVar: locator()));
@@ -93,6 +104,7 @@ void init() {
   // helper
   locator.registerLazySingleton<GomuflixMovieDatasourceHandler>(
       () => GomuflixMovieDatasourceHandler());
+
   locator.registerLazySingleton<GomuflixTvDatasourceHandler>(
       () => GomuflixTvDatasourceHandler());
 

@@ -8,14 +8,17 @@ abstract class GomuTvWatchlistState extends Equatable {
   List<Object> get props => [];
 }
 
+// Tv Watchlist State
 class GomuTvWatchlistInitial extends GomuTvWatchlistState {
   final String message = 'Initializing...';
 }
 
+// Tv Watchlist Loading
 class GomuTvWatchlistLoading extends GomuTvWatchlistState {
   final String message = 'Loading...';
 }
 
+// Tv Watchlist Loaded
 class GomuTvWatchlistLoaded extends GomuTvWatchlistState {
   final List<GomuflixTvEntity> gomuTvList;
 
@@ -25,6 +28,7 @@ class GomuTvWatchlistLoaded extends GomuTvWatchlistState {
   List<Object> get props => [gomuTvList];
 }
 
+// Tv Watchlist Error
 class GomuTvWatchlistError extends GomuTvWatchlistState {
   final String message;
 
@@ -34,6 +38,7 @@ class GomuTvWatchlistError extends GomuTvWatchlistState {
   List<Object> get props => [message];
 }
 
+// Tv Watchlist Success
 class GomuTvSuccess extends GomuTvWatchlistState {
   final String message;
 
@@ -43,6 +48,7 @@ class GomuTvSuccess extends GomuTvWatchlistState {
   List<Object> get props => [message];
 }
 
+// Tv Watchlist Status Loaded
 class GomuTvStatusLoaded extends GomuTvWatchlistState {
   final bool isWatchlist;
 

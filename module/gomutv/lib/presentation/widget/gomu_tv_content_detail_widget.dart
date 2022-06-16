@@ -241,9 +241,7 @@ class GomuflixTvDetailWidget extends StatelessWidget {
                 ),
               );
             },
-            // initialChildSize: 0.5,
             minChildSize: 0.25,
-            // maxChildSize: 1.0,
           ),
         ),
         Padding(

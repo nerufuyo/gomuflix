@@ -32,9 +32,6 @@ class GomuflixTvDetailScreenState extends State<GomuflixTvDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    GomuTvDetailState tvRecommendations =
-        context.watch<GomuTvRecommendationBloc>().state;
-
     return Scaffold(
       body: BlocListener<GomuTvWatchlistBloc, GomuTvWatchlistState>(
         listener: (_, state) {
@@ -64,6 +61,9 @@ class GomuflixTvDetailScreenState extends State<GomuflixTvDetailScreen> {
             }
 
             if (state is GomuTvDetailLoaded) {
+              GomuTvDetailState tvRecommendations =
+                  context.watch<GomuTvRecommendationBloc>().state;
+
               bool isAddedToWatchlistTv = (context
                       .watch<GomuTvWatchlistBloc>()
                       .state is GomuTvStatusLoaded)

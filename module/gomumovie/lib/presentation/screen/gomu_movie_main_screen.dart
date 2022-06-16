@@ -1,4 +1,3 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomucore/gomucore.dart';
 import 'package:gomumovie/gomumovie.dart';
@@ -22,9 +21,11 @@ class _GomuflixMovieMainScreenState extends State {
     Future.microtask(() =>
         Provider.of<GomuMovieNowPlayingBloc>(context, listen: false)
             .add(GomuMovieListEvent()));
+
     Future.microtask(() =>
         Provider.of<GomuMoviePopularBloc>(context, listen: false)
             .add(GomuMovieListEvent()));
+
     Future.microtask(() =>
         Provider.of<GomuMovieTopRatedBloc>(context, listen: false)
             .add(GomuMovieListEvent()));
