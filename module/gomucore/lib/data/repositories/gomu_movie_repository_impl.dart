@@ -26,6 +26,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -45,6 +47,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -64,6 +68,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -83,6 +89,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -102,6 +110,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -121,6 +131,8 @@ class GomuflixMovieRepositoryImpl implements GomuflixMovieRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 

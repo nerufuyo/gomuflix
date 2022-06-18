@@ -7,7 +7,6 @@ import 'package:gomumovie/domain/usecases/get_gomu_movie_watchlist.dart'
     as swMovie;
 import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart' as rwTv;
 import 'package:gomutv/domain/usecase/get_gomu_tv_watchlist_case.dart' as swTv;
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -109,5 +108,5 @@ void init() {
       () => GomuflixTvDatasourceHandler());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => HttpSSLPiningHelper.client);
 }

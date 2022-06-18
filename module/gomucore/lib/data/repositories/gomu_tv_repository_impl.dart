@@ -25,6 +25,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -43,6 +45,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -62,6 +66,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -79,6 +85,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -97,6 +105,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 
@@ -115,6 +125,8 @@ class GomuflixTvRepositoryImpl implements GomuflixTvRepository {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SslFailure('Certificate Invalid'));
     }
   }
 

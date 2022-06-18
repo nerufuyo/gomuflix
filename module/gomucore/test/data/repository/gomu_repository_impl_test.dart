@@ -144,6 +144,19 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.getGomuTvOnAirDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.getGomuflixTvOnAirAct();
+      // assert
+      verify(mockTvRemoteDatasource.getGomuTvOnAirDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Popular TV Series', () {
@@ -190,6 +203,19 @@ void main() {
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.getGomuTvPopularDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.getGomuflixTvPopularAct();
+      // assert
+      verify(mockTvRemoteDatasource.getGomuTvPopularDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Top Rated TV Series', () {
@@ -234,6 +260,19 @@ void main() {
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.getGomuTvTopRatedDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.getGomuflixTvTopRatedAct();
+      // assert
+      verify(mockTvRemoteDatasource.getGomuTvTopRatedDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
     });
   });
 
@@ -308,6 +347,19 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.getGomuTvDetailDatasource(tId))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.getGomuflixTvDetailAct(tId);
+      // assert
+      verify(mockTvRemoteDatasource.getGomuTvDetailDatasource(tId));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Get TV Series Recommendations', () {
@@ -364,6 +416,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.getGomuTvRecommendationDatasource(tId))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.getGomuflixTvRecommendationAct(tId);
+
+      // assert
+      verify(mockTvRemoteDatasource.getGomuTvRecommendationDatasource(tId));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Seach TV Series', () {
@@ -410,6 +476,20 @@ void main() {
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockTvRemoteDatasource.searchGomuTvDatasource(tQuery))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await tvRepository.searchGomuflixTvAct(tQuery);
+
+      // assert
+      verify(mockTvRemoteDatasource.searchGomuTvDatasource(tQuery));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
     });
   });
 
@@ -552,6 +632,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.getGomuMovieNowPlayingDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await movieRepository.getGomuflixMovieNowPlayingAct();
+
+      // assert
+      verify(mockMovieRemoteDatasource.getGomuMovieNowPlayingDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Popular Movies', () {
@@ -598,6 +692,20 @@ void main() {
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.getGomuMoviePopularDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await movieRepository.getGomuflixMoviePopularAct();
+
+      // assert
+      verify(mockMovieRemoteDatasource.getGomuMoviePopularDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Top Rated Movies', () {
@@ -642,6 +750,20 @@ void main() {
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.getGomuMovieTopRatedDatasource())
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await movieRepository.getGomuflixMovieTopRatedAct();
+
+      // assert
+      verify(mockMovieRemoteDatasource.getGomuMovieTopRatedDatasource());
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
     });
   });
 
@@ -719,6 +841,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.getGomuMovieDetailDatasource(tId))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await movieRepository.getGomuflixMovieDetailAct(tId);
+
+      // assert
+      verify(mockMovieRemoteDatasource.getGomuMovieDetailDatasource(tId));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Get Movie Recommendations', () {
@@ -781,6 +917,22 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.getGomuMovieRecommendationDatasource(tId))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result =
+          await movieRepository.getGomuflixMovieRecommendationAct(tId);
+
+      // assert
+      verify(
+          mockMovieRemoteDatasource.getGomuMovieRecommendationDatasource(tId));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
+    });
   });
 
   group('Seach Movies', () {
@@ -827,6 +979,20 @@ void main() {
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return ssl failure when the device is not have valid certificate',
+        () async {
+      // arrange
+      when(mockMovieRemoteDatasource.searchGomuMovieDatasource(tQuery))
+          .thenThrow(TlsException('Certificate Invalid'));
+      // act
+      final result = await movieRepository.searchGomuflixMovieAct(tQuery);
+
+      // assert
+      verify(mockMovieRemoteDatasource.searchGomuMovieDatasource(tQuery));
+      expect(result, equals(Left(SslFailure('Certificate Invalid'))));
     });
   });
 
